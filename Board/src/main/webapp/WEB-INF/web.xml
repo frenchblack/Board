@@ -14,9 +14,13 @@
 		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
 	</listener>
 
-	<!-- index파일 설정 -->
+	<!-- welcome 파일 설정 -->
 	<welcome-file-list> 
+		<!-- ideex.html-->
 		<welcome-file>/index.html</welcome-file>
+		 
+		 <!-- 연습용 index.html -->
+<!-- 		 <welcome-file>/study/index.html</welcome-file> -->
 	</welcome-file-list>
 
 	<!-- 에러페이지 설정 -->

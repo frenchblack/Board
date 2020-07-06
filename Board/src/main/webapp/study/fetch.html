@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="EUC-KR">
+		<title>fetch</title>
+	</head>
+	<body>
+		<article>
+			
+		</article>
+		<input type="button" value="fetch" onclick="
+			fetch('http://localhost/study/css.html').then(function(response) {
+				response.text().then(function(text) {
+					document.querySelector('article').innerHTML = text;
+				})
+			})
+		">
+	</body>	
+</<html>	

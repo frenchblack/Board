@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>INDEX</title>
+		<script type="text/javascript">
+			function initIndex () {
+				fetch("http://localhost/study/test.html").then(function(response) {
+					response.text().then(function(text) {
+						document.querySelector('#index').innerHTML = text;
+						console.log('inintIndex_complete');
+					})
+				})
+			}
+		</script>
+	</head>
+	<body>
+		<script type="text/javascript">
+			initIndex();
+		</script>
+		<article id="index">
+			
+		</article>
+	</body>
+</html>

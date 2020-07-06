@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Insert title here</title>
+		<style type="text/css">
+			.button {
+				display: block;
+				height: 50px;
+				width: 150px;
+				margin: 30px;
+			}
+		</style>
+	</head>
+	<body>
+		<input type="button" class="button" id="btn0" value="btn0">
+		<input type="button" class="button" id="btn1" value="btn1">
+		<input type="button" class="button" id="btn2" value="btn2">
+	
+		<script type="text/javascript">
+			var btns = [
+				document.getElementById("btn0")
+			  , document.getElementById("btn1")
+			  , document.getElementById("btn2")
+			];
+
+			function setClikc () {
+				for ( let i = 0 ; i < 3 ; i ++ ) {
+						btns[i].onclick = function() {
+						console.log(i);
+					}
+				}
+			}
+
+			setClikc();
+		</script>
+	</body>
+</html>
