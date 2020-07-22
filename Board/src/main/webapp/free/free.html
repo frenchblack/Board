@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="kor">
+<html lang="ko">
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -27,38 +27,11 @@
         color: white;
       }
 
-      @media (max-width: 768px) {
-          .carousel-inner .carousel-item > div {
-              display: none;
-          }
-          .carousel-inner .carousel-item > div:first-child {
-              display: block;
-          }
+      .table .table-tr {
+        
       }
-
-      .carousel-inner .carousel-item.active,
-      .carousel-inner .carousel-item-next,
-      .carousel-inner .carousel-item-prev {
-          display: flex;
-      }
-
-      /* display 4 */
-      @media (min-width: 768px) {
-          
-          .carousel-inner .carousel-item-right.active,
-          .carousel-inner .carousel-item-next {
-            transform: translateX(25.000%);
-          }
-          
-          .carousel-inner .carousel-item-left.active, 
-          .carousel-inner .carousel-item-prev {
-            transform: translateX(-25.000%);
-          }
-      }
-
-      .carousel-inner .carousel-item-right,
-      .carousel-inner .carousel-item-left{ 
-        transform: translateX(0);
+      .page-title {
+        margin-bottom: 2rem;
       }
     </style>
   </head>
@@ -100,6 +73,38 @@
 
       <!-- 메인 컨테이너 -->
       <div class="container container-main">
+        <div class="page-title">
+          <h4> 자유게시판 </h4>
+        </div>
+        <div>
+          <table class="table table-hover table-bordered">  
+            <thead class="thead-dark">
+              <tr class="table-tr">
+                <th scope="col">First</th>
+                <th scope="col">Last</th>
+                <th scope="col">Handle</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="table-tr">
+                <td>Mark</td>
+                <td>Otto</td>
+                <td>@mdo</td>
+              </tr>
+              <tr class="table-tr">
+                <td>Jacob</td>
+                <td>Thornton</td>
+                <td>@fat</td>
+              </tr>
+              <tr class="table-tr">
+                <td>Larry</td>
+                <td>the Bird</td>
+                <td>@twitter</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
       </div>
 
 <!--         <div class="card-deck">
