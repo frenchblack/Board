@@ -16,8 +16,8 @@
 
 	<!-- welcome 파일 설정 -->
 	<welcome-file-list> 
-		<!-- ideex.html-->
-		<welcome-file>/index.html</welcome-file>
+		<!-- ideex.jsp-->
+		<welcome-file>/index.jsp</welcome-file>
 		 
 		 <!-- 연습용 index.html -->
 <!-- 		 <welcome-file>/study/index.html</welcome-file> -->

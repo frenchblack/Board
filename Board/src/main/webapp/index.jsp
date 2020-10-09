@@ -1,3 +1,6 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
 <!DOCTYPE html>
 <html lang="ko">
   <head>
@@ -5,28 +8,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>title</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="/css/common/common.css">
     <style type="text/css">
-      .navbar-top {
-        margin-bottom: 20px;
-      }
-
-      .container-main {
-        border: 1px solid gray;
-        padding: 20px;
-        min-height: 500px;
-      }
-
-      .div-tail {
-        margin-top: 20px;
-        background-color: gray;
-        text-align: center;
-        padding: 30px 30px;
-      }
-
-      .text-tail {
-        color: white;
-      }
-
       @media (max-width: 768px) {
           .carousel-inner .carousel-item > div {
               display: none;
@@ -64,39 +47,7 @@
   </head>
   <body>
     <div id="wrapper">
-      <!-- 상단 navbar -->
-      <nav class="navbar navbar-expand-sm navbar-dark bg-dark navbar-top">
-        <a class="navbar-brand" href="/">Board</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon">
-          </span>
-        </button>
-        <div class="collapse navbar-collapse es-12" id="navbarSupportedContent">
-          <ul class="navbar-nav mr-auto">
-            <li class="nav-item active">
-              <a class="nav-link" href="/Free.do">자유게시판
-              </a>
-            </li>
-<!--             <li class="nav-item">
-  <a class="nav-link" href="#">Link</a>
-</li>  -->
-<!--             <li class="nav-item dropdown">
-  <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> Dropdown
-  </a>
-  <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-    <a class="dropdown-item" href="#">Action</a>
-    <a class="dropdown-item" href="#">Another action</a>
-    <div class="dropdown-divider">
-    </div>
-    <a class="dropdown-item" href="#">Something else here</a>
-  </div>
-</li>
-<li class="nav-item">
-  <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
-</li> -->
-          </ul>
-        </div>
-      </nav>
+      <%@ include file = "/layout/header.jsp" %>
 
       <!-- 메인 컨테이너 -->
       <div class="container container-main">
@@ -226,29 +177,7 @@
       </div>
     </div> -->
 
-    <div class="div-tail text-tail">
-        <a class="badge badge-light" href="https://getbootstrap.com/docs/4.5/components/navbar/">부트스트랩 doc</a>
-        <br>
-        <a class="badge badge-light" href="https://cordelia273.space/35">참고용 사이트</a>
-        <br>
-        <a class="badge badge-light" href="https://m.blog.naver.com/PostView.nhn?blogId=pjh445&logNo=221159714850&proxyReferer=https:%2F%2Fwww.google.com%2F">카트 참고용</a>
-        <br>
-        <a class="badge badge-light" href="https://mdbootstrap.com/docs/jquery/javascript/carousel/">캐러셀등 예제 참고용</a>
-        <br>
-        <a class="badge badge-light" href="https://www.it-swarm.dev/ko/jquery/%ED%95%9C-%EB%B2%88%EC%97%90-%EC%97%AC%EB%9F%AC-%ED%94%84%EB%A0%88%EC%9E%84%EC%9D%84-%EB%B6%80%ED%8A%B8-%EC%8A%A4%ED%8A%B8%EB%9E%A9-%EC%BA%90-%EB%9F%AC%EC%85%80/1043199922/">캐러셀 예제 참고용2</a>
-        <br>
-        <a class="badge badge-light" href="https://araikuma.tistory.com/56">캐러셀 예제 참고용2</a>
-        <br>
-        <a class="badge badge-light" href="https://opentutorials.org/course/743/4650">생활코딩 자바스크립트</a>
-        <br>
-        <a class="badge badge-light" href="https://ming9mon.tistory.com/65?category=825118">스프링 관련...</a>
-        <br>
-        <a class="badge badge-light" href="https://myjamong.tistory.com/17">아짝쓰 통신</a>
-        <br>
-        <a class="badge badge-light" href="https://freehoon.tistory.com/102">참고</a>
-        <br>
-        tail
-    </div>
+    <%@ include file = "/layout/tail.jsp" %>
 
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>

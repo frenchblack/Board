@@ -13,7 +13,7 @@
 			  , A.UP_ID AS UP_ID
 			  , A.UP_DATE AS UP_DATE
 		  FROM BOARD A
-		 ORDER BY A.IN_DATE
+		 ORDER BY A.IN_DATE DESC
 	</select>
 	<!-- 글 상세 검색 -->
 	<select id="getBoardContent" resultType="com.spring.board.model.BoardVO">
@@ -31,8 +31,7 @@
 	<insert id="insertBoard" parameterType="com.spring.board.model.BoardVO">
 		INSERT
 		  INTO BOARD (
-		  	    BOARD_CD
-			  , USER_ID
+		  		USER_ID
 			  , TITLE
 			  , CONTENT
 			  , IN_ID
@@ -40,8 +39,7 @@
 			  , UP_ID
 			  , UP_DATE
 			  ) VALUES (
-			    #{board_cd}
-			  , #{user_id}
+			    #{user_id}
 			  , #{title}
 			  , #{content}
 			  , #{in_id}

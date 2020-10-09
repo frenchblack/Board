@@ -1,7 +1,7 @@
 package com.spring.board.model;
 
 public class BoardVO {
-	public String board_cd;
+	public int board_cd;
 	public String user_id;
 	public String title;
 	public String content;
@@ -10,10 +10,10 @@ public class BoardVO {
 	public String up_id;
 	public String up_date;
 	
-	public String getBoard_cd() {
+	public int getBoard_cd() {
 		return board_cd;
 	}
-	public void setBoard_cd(String borad_cd) {
+	public void setBoard_cd(int borad_cd) {
 		this.board_cd = borad_cd;
 	}
 	public String getUser_id() {

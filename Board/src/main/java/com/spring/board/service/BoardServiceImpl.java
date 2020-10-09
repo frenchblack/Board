@@ -1,6 +1,7 @@
 package com.spring.board.service;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.inject.Inject;
 
@@ -18,6 +19,11 @@ public class BoardServiceImpl implements BoardService {
 	@Override
 	public List<BoardVO> getBoardList() throws Exception {
 		return boardDAO.getBoardList();
+	}
+
+	@Override
+	public int insertBoard(BoardVO boardVO) throws Exception {
+		return boardDAO.insertBoard(boardVO);
 	}
 
 }

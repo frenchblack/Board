@@ -53,7 +53,7 @@ public class BoardDAOTest {
 	@Test 
 	public void testGetBoardContent() throws Exception {
 
-		BoardVO boardVO = boardDAO.getBoardContent("00000001");
+		BoardVO boardVO = boardDAO.getBoardContent(1);
 		logger.info("\n Board Content\n ");
 
 		if(boardVO != null) {
@@ -75,7 +75,7 @@ public class BoardDAOTest {
 		BoardVO boardVO = new BoardVO();
 		logger.info("\n Board Insert\n ");
 		
-		boardVO.setBoard_cd("00000001");
+		boardVO.setBoard_cd(1);
 		boardVO.setUser_id("TEST_USER");
 		boardVO.setTitle("첫번째 게시물 입니다.");
 		boardVO.setContent("첫번째 게시물입니다.");
@@ -98,7 +98,7 @@ public class BoardDAOTest {
 		BoardVO boardVO = new BoardVO();
 		logger.info("\n Board Update\n ");
 
-		boardVO.setBoard_cd("00000001");
+		boardVO.setBoard_cd(1);
 		boardVO.setTitle("첫번째 게시물 입니다-수정 합니다.");
 		boardVO.setContent("첫번째 게시물입니다-수정합니다.");
 		boardVO.setUp_id("TEST_USER");
@@ -116,7 +116,7 @@ public class BoardDAOTest {
 	@Test @Ignore
 	public void tesDeleteBoard() throws Exception {
 
-		int result = boardDAO.deleteBoard("00000001");
+		int result = boardDAO.deleteBoard(1);
 		logger.info("\n Delete Board Result \n ");
 
 		if(result > 0) {

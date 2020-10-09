@@ -1,0 +1,27 @@
+.navbar-top {
+margin-bottom: 20px;
+}
+
+.container-main {
+border: 1px solid gray;
+padding: 20px;
+min-height: 500px;
+}
+
+.div-tail {
+margin-top: 20px;
+background-color: gray;
+text-align: center;
+padding: 30px 30px;
+}
+
+.text-tail {
+color: white;
+}
+
+.table .table-tr {
+
+}
+.page-title {
+margin-bottom: 2rem;
+}

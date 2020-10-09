@@ -25,7 +25,7 @@ public class BoardDAOImpl implements BoardDAO {
 	}
 
 	@Override
-	public BoardVO getBoardContent(String board_cd) throws Exception {
+	public BoardVO getBoardContent(int board_cd) throws Exception {
 		return sqlSession.selectOne("boardMapper.getBoardContent", board_cd);
 	}
 
@@ -40,7 +40,7 @@ public class BoardDAOImpl implements BoardDAO {
 	}
 
 	@Override
-	public int deleteBoard(String board_cd) throws Exception {
+	public int deleteBoard(int board_cd) throws Exception {
 		return sqlSession.delete("boardMapper.deleteBoard", board_cd);
 	}
 

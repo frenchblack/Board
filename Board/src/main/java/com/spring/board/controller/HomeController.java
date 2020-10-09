@@ -36,17 +36,17 @@ public class HomeController {
 //		return "index";
 //	}
 	
-	@RequestMapping(value = "/Free", method = RequestMethod.GET)
-	public String free(Locale locale, Model model) {
-		logger.info("Welcome free! The client locale is {}.", locale);
-		
-		Date date = new Date();
-		DateFormat dateFormat = DateFormat.getDateTimeInstance(DateFormat.LONG, DateFormat.LONG, locale);
-		
-		String formattedDate = dateFormat.format(date);
-		
-		model.addAttribute("serverTime", formattedDate );
-		
-		return "/free/free";
-	}
+//	@RequestMapping(value = "/Free", method = RequestMethod.GET)
+//	public String free(Locale locale, Model model) {
+//		logger.info("Welcome free! The client locale is {}.", locale);
+//		
+//		Date date = new Date();
+//		DateFormat dateFormat = DateFormat.getDateTimeInstance(DateFormat.LONG, DateFormat.LONG, locale);
+//		
+//		String formattedDate = dateFormat.format(date);
+//		
+//		model.addAttribute("serverTime", formattedDate );
+//		
+//		return "/free/free";
+//	}
 }
