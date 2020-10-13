@@ -53,8 +53,9 @@
 		   SET TITLE = #{title}
 		     , CONTENT = #{content}
 		     , UP_ID = #{up_id}
-		     , UP_DATE = NOW();
-	</update>
+		     , UP_DATE = NOW()
+		 WHERE BOARD_CD = #{board_cd}
+ 	</update>
 	<delete id="deleteBoard" parameterType="com.spring.board.model.BoardVO">
 		DELETE
 		  FROM BOARD

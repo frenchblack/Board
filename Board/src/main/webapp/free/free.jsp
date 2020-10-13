@@ -39,7 +39,11 @@
                   <c:forEach var="list" items="${boardList}">
                     <tr class="table-tr">
                       <td><c:out value="${list.board_cd}"/></td>
-                      <td><c:out value="${list.title}"/></td>
+                      <td>
+                        <a style="color: black;" href="#" onclick="fn_moveContent(<c:out value='${list.board_cd}'/>)">
+                          <c:out value="${list.title}"/>
+                        </a>
+                      </td>
                       <td><c:out value="${list.content}"/></td>
                       <td><c:out value="${list.user_id}"/></td>
                       <td><c:out value="${list.in_date}"/></td>
@@ -55,7 +59,8 @@
         </div>
       </div>
 
-    <%@ include file = "/layout/tail.jsp" %>
+      <%@ include file = "/layout/tail.jsp" %>
+    </div>
 
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
@@ -63,8 +68,14 @@
 
     <script type="text/javascript">
       $( '#btnWriteForm' ).click( function() {
-        $( location ).attr( 'href', '/Board/Free/writeBoard.do' );
+        location.href = "/Board/Free/writeBoard.do";
       });
+
+      function fn_moveContent( board_cd ) {
+        var url = "/Board/Free/getBoardContent.do";
+        url = url + "?board_cd=" + board_cd;
+        location.href = url;
+      }
     </script>
   </body>
 </html>

@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="form" uri = "http://www.springframework.org/tags/form" %> 
 <!DOCTYPE html>
 <html lang="ko">
   <head>
@@ -20,20 +21,23 @@
           <h4> 글 작성 </h4>
         </div>
         <div>
-          <form name="form" id="form" role="form" method="post" action="/Board/Free/insertBoard.do">
+          <form:form name="form" id="form" role="form" modelAttribute="boardVO" method="post" action="/Board/Free/insertBoard.do">
+            <form:hidden path="board_cd"/>
+            <input type="hidden" name="mode"/>
+
             <div class="mb-3">
               <label for="title">제목</label>
-              <input type="text" class="form-control" name="title" id="title" placeholder="제목을 입력해 주세요">
+              <form:input path="title" type="text" class="form-control" name="title" id="title" placeholder="제목을 입력해 주세요"/>
             </div>  
             <div class="mb-3">
               <label for="user_id">작성자</label>
-              <input type="text" class="form-control" name="user_id" id="user_id" placeholder="이름을 입력해 주세요">
+              <form:input path="user_id" type="text" class="form-control" name="user_id" id="user_id" placeholder="이름을 입력해 주세요"/>
             </div>           
             <div class="mb-3">
               <label for="content">내용</label>
-              <textarea class="form-control" rows="5" name="content" id="content" placeholder="내용을 입력해 주세요" ></textarea>
+              <form:textarea path="content" class="form-control" rows="5" name="content" id="content" placeholder="내용을 입력해 주세요"/> 
             </div>      
-          </form>
+          </form:form>
           <div >
             <button type="button" class="btn btn-sm btn-primary" id="btnSave">저장</button>
             <button type="button" class="btn btn-sm btn-primary" id="btnList">목록</button>
@@ -41,7 +45,8 @@
         </div>
       </div>
 
-    <%@ include file = "/layout/tail.jsp" %>
+      <%@ include file = "/layout/tail.jsp" %>
+    </div>
 
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
@@ -55,7 +60,20 @@
 
       $( '#btnList' ).click( function(e) {
         e.preventDefault(); 
-        $( location ).attr('href', '/Board/Free/getBoardList.do')
+        location.href = '/Board/Free/getBoardList.do';
+      });
+
+      $( document ).ready( function() {
+        var mode = "<c:out value='${mode}'/>";
+
+        if ( mode == 'update' ) {
+          $( "#user_id" ).prop('readonly', true);
+          $( "input:hidden[name='board_cd']" ).val('<c:out value="${boardContent.board_cd}"/>');
+          $( "input:hidden[name='mode']" ).val('<c:out value="${mode}"/>');
+          $( "#user_id" ).val('<c:out value="${boardContent.user_id}"/>');
+          $( "#title" ).val('<c:out value="${boardContent.title}"/>');
+          $( "#content" ).val('<c:out value="${boardContent.content}"/>');
+        }
       });
     </script>
   </body>

@@ -9,6 +9,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.spring.board.model.BoardVO;
@@ -33,13 +34,45 @@ public class BoardController {
 	@RequestMapping(value = "/Free/writeBoard", method = RequestMethod.GET)
 	public String moveWriteBoard(Model model) throws Exception {
 		logger.info("moveWriteBoard");
+		model.addAttribute("boardVO", new BoardVO());
+		
 		return "/free/writeForm";
 	}
 	
 	@RequestMapping(value = "/Free/insertBoard", method = RequestMethod.POST)
-	public String insertBoard(@ModelAttribute("BoardVO") BoardVO boardVO, RedirectAttributes rttr) throws Exception {
-		logger.info("insertBoard");
-		boardService.insertBoard(boardVO);
+	public String saveBoard(@ModelAttribute("BoardVO") BoardVO boardVO, @RequestParam("mode") String mode, RedirectAttributes rttr) throws Exception {
+		logger.info("saveBoard");
+		if ( mode.equals("update") ) {
+			boardService.updateBoard(boardVO);
+		} else {
+			boardService.insertBoard(boardVO);
+		}
+		
+		return "redirect:/Board/Free/getBoardList.do";
+	}
+	
+	@RequestMapping(value = "/Free/getBoardContent", method = RequestMethod.GET)
+	public String getBoardContent(Model model, @RequestParam("board_cd") int board_cd) throws Exception {
+		logger.info("getBoardContent");
+		model.addAttribute("boardContent", boardService.getBoardContent(board_cd));
+		
+		return "/free/boardContent";
+	}
+	
+	@RequestMapping(value = "/Free/updateForm", method = RequestMethod.GET)
+	public String updateBoard(@RequestParam("board_cd") int board_cd, @RequestParam String mode, Model model) throws Exception {
+		logger.info("updateBoard");
+		model.addAttribute("boardContent", boardService.getBoardContent(board_cd));
+		model.addAttribute("mode", mode);
+		model.addAttribute("boardVO", new BoardVO());
+		
+		return "/free/writeForm";
+	}
+	
+	@RequestMapping(value = "/Free/deleteBoard", method = RequestMethod.GET)
+	public String deleteBoard(@RequestParam("board_cd") int board_cd, RedirectAttributes rttr) throws Exception {
+		logger.info("deleteBoard");
+		boardService.deleteBoard(board_cd);
 		
 		return "redirect:/Board/Free/getBoardList.do";
 	}

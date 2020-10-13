@@ -6,7 +6,7 @@ public class BoardVO {
 	public String title;
 	public String content;
 	public String in_id;
-	public String in_date;
+	public String in_date; 
 	public String up_id;
 	public String up_date;
 	
