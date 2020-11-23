@@ -29,6 +29,13 @@ public class BoardServiceImpl implements BoardService {
 	@Override
 	public BoardVO getBoardContent(int board_cd) throws Exception {
 		return boardDAO.getBoardContent(board_cd);
+		
+//		BoardVO boardVO = new BoardVO();
+//		boardVO.setBoard_cd(board_cd);
+//		boardVO.setUser_id("ERROR!!!");
+//		boardDAO.updateBoard(boardVO);
+	
+//		return boardVO;
 	}
 
 	@Override

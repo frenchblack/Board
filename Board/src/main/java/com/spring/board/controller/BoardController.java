@@ -6,6 +6,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -54,6 +55,7 @@ public class BoardController {
 	@RequestMapping(value = "/Free/getBoardContent", method = RequestMethod.GET)
 	public String getBoardContent(Model model, @RequestParam("board_cd") int board_cd) throws Exception {
 		logger.info("getBoardContent");
+		//int x = 0/0;
 		model.addAttribute("boardContent", boardService.getBoardContent(board_cd));
 		
 		return "/free/boardContent";
@@ -75,5 +77,12 @@ public class BoardController {
 		boardService.deleteBoard(board_cd);
 		
 		return "redirect:/Board/Free/getBoardList.do";
+	}
+	
+	@ExceptionHandler(RuntimeException.class)
+	public String exceptionHandler(Model model, Exception e){
+		logger.info("exceptionHandler : " + e.getMessage());
+		model.addAttribute("exception", e);
+		return "/error/exception";
 	}
 }
