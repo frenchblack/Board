@@ -55,7 +55,7 @@ public class BoardController {
 	@RequestMapping(value = "/Free/getBoardContent", method = RequestMethod.GET)
 	public String getBoardContent(Model model, @RequestParam("board_cd") int board_cd) throws Exception {
 		logger.info("getBoardContent");
-		//int x = 0/0;
+		
 		model.addAttribute("boardContent", boardService.getBoardContent(board_cd));
 		
 		return "/free/boardContent";
@@ -77,12 +77,5 @@ public class BoardController {
 		boardService.deleteBoard(board_cd);
 		
 		return "redirect:/Board/Free/getBoardList.do";
-	}
-	
-	@ExceptionHandler(RuntimeException.class)
-	public String exceptionHandler(Model model, Exception e){
-		logger.info("exceptionHandler : " + e.getMessage());
-		model.addAttribute("exception", e);
-		return "/error/exception";
 	}
 }
