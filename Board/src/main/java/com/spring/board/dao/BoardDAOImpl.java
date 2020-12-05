@@ -9,6 +9,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
 
+import com.spring.board.common.Pagination;
 //import com.spring.board.BoardDAOTest;
 import com.spring.board.model.BoardVO;
 
@@ -20,8 +21,8 @@ public class BoardDAOImpl implements BoardDAO {
 	private SqlSession sqlSession;
 	
 	@Override
-	public List<BoardVO> getBoardList() throws Exception {
-		return sqlSession.selectList("boardMapper.getBoardList");
+	public List<BoardVO> getBoardList(Pagination pagination) throws Exception {
+		return sqlSession.selectList("boardMapper.getBoardList", pagination);
 	}
 
 	@Override
@@ -42,6 +43,11 @@ public class BoardDAOImpl implements BoardDAO {
 	@Override
 	public int deleteBoard(int board_cd) throws Exception {
 		return sqlSession.delete("boardMapper.deleteBoard", board_cd);
+	}
+
+	@Override
+	public int getBoardCnt() throws Exception {
+		return sqlSession.selectOne("boardMapper.getBoardCnt");
 	}
 
 }

@@ -7,7 +7,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>title</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="/css/common/common.css">
   </head>
   <body>
@@ -40,7 +40,7 @@
                     <tr class="table-tr">
                       <td><c:out value="${list.board_cd}"/></td>
                       <td>
-                        <a style="color: black;" href="#" onclick="fn_moveContent(<c:out value='${list.board_cd}'/>)">
+                        <a href="/Board/Free/getBoardContent.do?board_cd=<c:out value='${list.board_cd}'/>" style="color: black;">
                           <c:out value="${list.title}"/>
                         </a>
                       </td>
@@ -53,6 +53,28 @@
               </c:choose>
             </tbody>
           </table>
+          <!-- pagination{s} -->
+          <div id="paginationBox">
+            <ul class="pagination justify-content-center">
+              <c:if test="${pagination.prev}">
+                <li class="page-item"><a class="page-link" href="/Board/Free/getBoardList.do?page=${((pagination.range - 2) * pagination.rangeSize) + pagination.rangeSize}&range=${pagination.range - 1}">Previous</a></li>
+              </c:if>      
+              <c:forEach begin="${pagination.startPage}" end="${pagination.endPage}" var="idx">
+                <c:choose>
+                  <c:when test="${pagination.page == idx}">
+                    <li class="page-item active"><span class="page-link">${idx}</span></li>
+                  </c:when>
+                  <c:otherwise>
+                    <li class="page-item">
+                       <a class="page-link" href="/Board/Free/getBoardList.do?page=${idx}&range=${pagination.range}">${idx} </a></li>
+                  </c:otherwise>
+                </c:choose>
+              </c:forEach>      
+              <c:if test="${pagination.next}">
+                <li class="page-item"><a class="page-link" href="/Board/Free/getBoardList.do?page=${(pagination.range * pagination.rangeSize) + 1}&range=${pagination.range + 1}">Next</a></li>
+              </c:if>
+            </ul>
+          </div>
           <div>
             <button type="button" class="btn btn-sm btn-primary" id="btnWriteForm">글쓰기</button>
           </div>
@@ -68,11 +90,46 @@
         location.href = "/Board/Free/writeBoard.do";
       });
 
-      function fn_moveContent( board_cd ) {
-        var url = "/Board/Free/getBoardContent.do";
-        url = url + "?board_cd=" + board_cd;
-        location.href = url;
-      }
+    //   function fn_moveContent( board_cd ) {
+    //     var url = "/Board/Free/getBoardContent.do";
+    //     url = url + "?board_cd=" + board_cd;
+    //     location.href = url;
+    //   }
+
+    // //이전 버튼 이벤트
+    // function fn_prev(page, range, rangeSize) {
+    //     var page = ((range - 2) * rangeSize) + Number(rangeSize);
+    //     var range = range - 1;
+        
+    //     var url = "/Board/Free/getBoardList.do";
+    //     url = url + "?page=" + page;
+    //     url = url + "&range=" + range;
+        
+    //     location.href = url;
+    //   }
+
+    //   //페이지 번호 클릭
+    //   function fn_pagination(page, range, rangeSize, searchType, keyword) {
+    //     var url = "/Board/Free/getBoardList.do";
+    //     url = url + "?page=" + page;
+    //     url = url + "&range=" + range;
+
+    //     location.href = url;  
+    //   }
+
+    //   //다음 버튼 이벤트
+    //   function fn_next(page, range, rangeSize, a_obj) {
+    //     var page = parseInt((range * rangeSize)) + 1;
+    //     var range = parseInt(range) + 1;
+      
+    //     var url = "/Board/Free/getBoardList.do";
+    //     url = url + "?page=" + page;
+    //     url = url + "&range=" + range;
+       
+
+    //     location.href = url;  
+    //     //a_obj.setAttribute('href', url);
+    //   }
     </script>
   </body>
 </html>

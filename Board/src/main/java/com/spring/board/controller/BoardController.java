@@ -5,6 +5,7 @@ import javax.inject.Inject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.spring.board.common.Pagination;
 import com.spring.board.model.BoardVO;
 import com.spring.board.service.BoardService;
 
@@ -25,9 +27,16 @@ public class BoardController {
 	private BoardService boardService;
 	
 	@RequestMapping(value = "/Free/getBoardList", method = RequestMethod.GET)
-	public String getBoardList(Model model) throws Exception {
+	public String getBoardList(Model model, @RequestParam(required = false, defaultValue = "1") int page,  @RequestParam(required = false, defaultValue = "1") int range) throws Exception {
 		logger.info("getBoardList");
-		model.addAttribute("boardList", boardService.getBoardList());
+		
+		int listCnt = boardService.getBoardCnt();
+		
+		Pagination pagination = new Pagination();
+		pagination.pageInfo(page, range, listCnt);
+		
+		model.addAttribute("pagination", pagination);
+		model.addAttribute("boardList", boardService.getBoardList(pagination));
 		
 		return "/free/free";
 	}
@@ -52,6 +61,7 @@ public class BoardController {
 		return "redirect:/Board/Free/getBoardList.do";
 	}
 	
+	@Transactional
 	@RequestMapping(value = "/Free/getBoardContent", method = RequestMethod.GET)
 	public String getBoardContent(Model model, @RequestParam("board_cd") int board_cd) throws Exception {
 		logger.info("getBoardContent");

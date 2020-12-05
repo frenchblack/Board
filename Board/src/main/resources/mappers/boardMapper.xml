@@ -14,6 +14,8 @@
 			  , A.UP_DATE AS UP_DATE
 		  FROM BOARD A
 		 ORDER BY A.IN_DATE DESC
+		  		, A.BOARD_CD DESC
+		 LIMIT #{startList}, #{listSize}
 	</select>
 	<!-- 글 상세 검색 -->
 	<select id="getBoardContent" resultType="com.spring.board.model.BoardVO">
@@ -27,6 +29,10 @@
 			  , A.UP_DATE AS UP_DATE
 		  FROM BOARD A
 		 WHERE A.BOARD_CD = #{board_cd}
+	</select>
+	<select id="getBoardCnt" resultType="int">
+		SELECT COUNT(1)
+ 		  FROM BOARD
 	</select>
 	<insert id="insertBoard" parameterType="com.spring.board.model.BoardVO">
 		INSERT
