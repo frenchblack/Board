@@ -9,6 +9,19 @@
     <title>title</title>
     <link rel="stylesheet" href="/css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="/css/common/common.css">
+    <style type="text/css">
+      .search-group{
+        display: inline;
+      }
+
+      #searchType {
+        display: inline;
+      }
+
+      #keyword {
+        display: inline;
+      }
+    </style>
   </head>
   <body>
     <div id="wrapper">
@@ -20,6 +33,7 @@
           <h4> 자유게시판 </h4>
         </div>
         <div>
+          <!--board-->
           <table class="table table-hover table-bordered">  
             <thead class="thead-dark">
               <tr class="table-tr">
@@ -38,9 +52,9 @@
                 <c:when test="${!empty boardList}">
                   <c:forEach var="list" items="${boardList}">
                     <tr class="table-tr">
-                      <td><c:out value="${list.board_cd}"/></td>
+                      <td><c:out value="${list.board_cd}"/></td> 
                       <td>
-                        <a href="/Board/Free/getBoardContent.do?board_cd=<c:out value='${list.board_cd}'/>" style="color: black;">
+                        <a href="${uriParser.freeContent}${uriParser.parsingURI({'board_cd':list.board_cd})}" style="color: black;">
                           <c:out value="${list.title}"/>
                         </a>
                       </td>
@@ -53,11 +67,11 @@
               </c:choose>
             </tbody>
           </table>
-          <!-- pagination{s} -->
+          <!-- pagination -->
           <div id="paginationBox">
             <ul class="pagination justify-content-center">
               <c:if test="${pagination.prev}">
-                <li class="page-item"><a class="page-link" href="/Board/Free/getBoardList.do?page=${((pagination.range - 2) * pagination.rangeSize) + pagination.rangeSize}&range=${pagination.range - 1}">Previous</a></li>
+                <li class="page-item"><a class="page-link" href="${uriParser.freeList}${uriParser.parsingURI({'page' : pagination.startPage - 1, 'range' : pagination.range - 1}, searchVO)}">Previous</a></li>
               </c:if>      
               <c:forEach begin="${pagination.startPage}" end="${pagination.endPage}" var="idx">
                 <c:choose>
@@ -66,17 +80,27 @@
                   </c:when>
                   <c:otherwise>
                     <li class="page-item">
-                       <a class="page-link" href="/Board/Free/getBoardList.do?page=${idx}&range=${pagination.range}">${idx} </a></li>
+                       <a class="page-link" href="${uriParser.freeList}${uriParser.parsingURI({'page':idx, 'range':pagination.range}, searchVO)}">${idx} </a></li>
                   </c:otherwise>
                 </c:choose>
               </c:forEach>      
               <c:if test="${pagination.next}">
-                <li class="page-item"><a class="page-link" href="/Board/Free/getBoardList.do?page=${(pagination.range * pagination.rangeSize) + 1}&range=${pagination.range + 1}">Next</a></li>
+                <li class="page-item"><a class="page-link" href="${uriParser.freeList}${uriParser.parsingURI({'page':pagination.endPage + 1, 'range':pagination.range + 1}, searchVO)}">Next</a></li>
               </c:if>
             </ul>
           </div>
-          <div>
+          <div class="justify-content-center">
             <button type="button" class="btn btn-sm btn-primary" id="btnWriteForm">글쓰기</button>
+            <div class="form-group search-group justify-content-center">
+              <select class="form-control col-1" name="searchType" id="searchType">
+                <option value="all">전체</option>
+                <option value="title">제목</option>
+                <option value="content">내용</option>
+                <option value="in_id">작성자</option>
+              </select>
+              <input type="text" class="form-control col-4" name="keyword" id="keyword">
+              <button class="btn btn-sm btn-primary" name="btnSearch" id="btnSearch">검색</button>
+            </div>
           </div>
         </div>
       </div>
@@ -86,9 +110,35 @@
 
     <script type="text/javascript" src="/js/common.js"></script>
     <script type="text/javascript">
+      //이벤트 등록
       $( '#btnWriteForm' ).click( function() {
-        location.href = "/Board/Free/writeBoard.do";
+        location.href = "${uriParser.freeWirte}";
       });
+
+      $( '#btnSearch' ).on( 'click', fn_exSearch );
+
+      $( '#keyword' ).on( 'keydown', function( e ) {
+        if ( e.keyCode == 13 ) {
+          fn_exSearch();
+        }
+      });
+
+      //-------------------------------------------------------
+      //사용자 정의 이벤트
+
+      //검색 함수
+      function fn_exSearch() {
+        var url = "${uriParser.freeList}";
+
+        if ( $( '#keyword' ).val() == "" ) {
+          location.href = url;
+          return;
+        }
+
+        url += "?searchType=" + $( '#searchType' ).val() + "&keyword=" + $( '#keyword' ).val();
+
+        location.href = url;
+      }
 
     //   function fn_moveContent( board_cd ) {
     //     var url = "/Board/Free/getBoardContent.do";

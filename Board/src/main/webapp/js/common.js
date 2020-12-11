@@ -1,4 +1,11 @@
 /* 공통JS 파일*/
+//공통변수
+// var commonUrl = {
+// 	freeList : "/Board/Free/getBoardList.do"
+//   , freeContent : "/Board/Free/getBoardContent.do"
+//   , freeWirte : "/Board/Free/writeBoard.do"
+// };
+
 function addJavascript(src, integrity, crossorigin) {
   let wStr = "<script type='text/javascript'";
   wStr += "src='" + src + "'";

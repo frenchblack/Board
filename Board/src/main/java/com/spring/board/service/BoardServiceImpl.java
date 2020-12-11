@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import com.spring.board.common.Pagination;
 import com.spring.board.dao.BoardDAO;
 import com.spring.board.model.BoardVO;
+import com.spring.board.model.SearchVO;
 
 @Service
 public class BoardServiceImpl implements BoardService {
@@ -17,8 +18,8 @@ public class BoardServiceImpl implements BoardService {
 	private BoardDAO boardDAO;
 
 	@Override
-	public List<BoardVO> getBoardList(Pagination pagination) throws Exception {
-		return boardDAO.getBoardList(pagination);
+	public List<BoardVO> getBoardList(Pagination pagination, SearchVO searchVO) throws Exception {
+		return boardDAO.getBoardList(pagination, searchVO); 
 	}
 
 	@Override
@@ -42,8 +43,8 @@ public class BoardServiceImpl implements BoardService {
 	}
 
 	@Override
-	public int getBoardCnt() throws Exception {
-		return boardDAO.getBoardCnt();
+	public int getBoardCnt(SearchVO searchVO) throws Exception {
+		return boardDAO.getBoardCnt(searchVO);
 	}
 
 }

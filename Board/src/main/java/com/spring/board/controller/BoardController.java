@@ -1,5 +1,7 @@
 package com.spring.board.controller;
 
+import java.security.URIParameter;
+
 import javax.inject.Inject;
 
 import org.slf4j.Logger;
@@ -15,7 +17,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.spring.board.common.Pagination;
+import com.spring.board.common.URIParser;
 import com.spring.board.model.BoardVO;
+import com.spring.board.model.SearchVO;
 import com.spring.board.service.BoardService;
 
 @Controller
@@ -27,16 +31,21 @@ public class BoardController {
 	private BoardService boardService;
 	
 	@RequestMapping(value = "/Free/getBoardList", method = RequestMethod.GET)
-	public String getBoardList(Model model, @RequestParam(required = false, defaultValue = "1") int page,  @RequestParam(required = false, defaultValue = "1") int range) throws Exception {
+	public String getBoardList(Model model, @RequestParam(required = false, defaultValue = "1") int page
+			, @RequestParam(required = false, defaultValue = "1") int range
+			, @ModelAttribute("searchVO") SearchVO searchVO) throws Exception {
 		logger.info("getBoardList");
 		
-		int listCnt = boardService.getBoardCnt();
+		int listCnt = boardService.getBoardCnt(searchVO);
 		
 		Pagination pagination = new Pagination();
 		pagination.pageInfo(page, range, listCnt);
 		
+		URIParser uriParser = new URIParser();
+		
+		model.addAttribute("uriParser", uriParser);
 		model.addAttribute("pagination", pagination);
-		model.addAttribute("boardList", boardService.getBoardList(pagination));
+		model.addAttribute("boardList", boardService.getBoardList(pagination, searchVO));
 		
 		return "/free/free";
 	}

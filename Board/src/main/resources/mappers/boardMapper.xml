@@ -3,7 +3,7 @@
 
 <mapper namespace="boardMapper">
 	<!-- 글 목록 검색 -->
-	<select id="getBoardList" resultType="com.spring.board.model.BoardVO">
+	<select id="getBoardList" parameterType="hashmap" resultType="com.spring.board.model.BoardVO">
 		SELECT A.BOARD_CD AS BOARD_CD
 			  , A.USER_ID AS USER_ID
 			  , A.TITLE AS TITLE
@@ -13,9 +13,22 @@
 			  , A.UP_ID AS UP_ID
 			  , A.UP_DATE AS UP_DATE
 		  FROM BOARD A
+	  <trim prefix="WHERE" prefixOverrides="AND |OR ">
+	  	<if test="searchVO.keyword != null and searchVO.keyword != ''">
+		    <if test="searchVO.searchType == 'title' or searchVO.searchType == 'all'">
+		    	A.TITLE LIKE CONCAT('%', #{searchVO.keyword}, '%')
+		    </if> 
+		    <if test="searchVO.searchType == 'content' or searchVO.searchType == 'all'">
+		     OR A.CONTENT LIKE CONCAT('%', #{searchVO.keyword}, '%')
+		    </if>
+		    <if test="searchVO.searchType == 'in_id' or searchVO.searchType == 'all'">
+		     OR A.IN_ID LIKE CONCAT('%', #{searchVO.keyword}, '%')
+		    </if>
+	    </if> 
+	  </trim>
 		 ORDER BY A.IN_DATE DESC
 		  		, A.BOARD_CD DESC
-		 LIMIT #{startList}, #{listSize}
+		 LIMIT #{pagination.startList}, #{pagination.listSize}
 	</select>
 	<!-- 글 상세 검색 -->
 	<select id="getBoardContent" resultType="com.spring.board.model.BoardVO">
@@ -33,6 +46,19 @@
 	<select id="getBoardCnt" resultType="int">
 		SELECT COUNT(1)
  		  FROM BOARD
+	  <trim prefix="WHERE" prefixOverrides="AND |OR ">
+	  	<if test="keyword != null and keyword != ''">
+		    <if test="searchType == 'title' or searchType == 'all'">
+		    	TITLE LIKE CONCAT('%', #{keyword}, '%')
+		    </if> 
+		    <if test="searchType == 'content' or searchType == 'all'">
+		     OR CONTENT LIKE CONCAT('%', #{keyword}, '%')
+		    </if>
+		    <if test="searchType == 'in_id' or searchType == 'all'">
+		     OR IN_ID LIKE CONCAT('%', #{keyword}, '%')
+		    </if>
+	    </if> 
+	  </trim>
 	</select>
 	<insert id="insertBoard" parameterType="com.spring.board.model.BoardVO">
 		INSERT

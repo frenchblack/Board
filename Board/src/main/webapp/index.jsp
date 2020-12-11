@@ -77,7 +77,7 @@
             <div class="carousel-item active">
               <div class="col-12 col-md-3">
                 <div class="card md-2" onclick="alert('클릭');">
-                  <img src="" class="card-img-top" alt="Card image" onerror="this.src='https://thumbs.dreamstime.com/b/no-image-available-icon-photo-camera-flat-vector-illustration-132483097.jpg'">
+                  <img src="" class="card-img-top" alt="Card image" onerror="this.src='/img/no_image.jpg'">
                   <div class="card-body">
                     <h5 class="card-title">1.Card title</h5>
                     <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
@@ -89,7 +89,7 @@
             <div class="carousel-item">
               <div class="col-12 col-md-3">
                 <div class="card md-2">
-                  <img src="" class="card-img-top" alt="Card image" onerror="this.src='https://thumbs.dreamstime.com/b/no-image-available-icon-photo-camera-flat-vector-illustration-132483097.jpg'">
+                  <img src="" class="card-img-top" alt="Card image" onerror="this.src='/img/no_image.jpg'">
                   <div class="card-body">
                     <h5 class="card-title">2.Card title</h5>
                     <p class="card-text">This card has supporting text below as a natural lead-in to additional content.</p>
@@ -101,7 +101,7 @@
             <div class="carousel-item">
               <div class="col-12 col-md-3">
                 <div class="card md-2">
-                  <img src="" class="card-img-top" alt="Card image" onerror="this.src='https://thumbs.dreamstime.com/b/no-image-available-icon-photo-camera-flat-vector-illustration-132483097.jpg'">
+                  <img src="" class="card-img-top" alt="Card image" onerror="this.src='/img/no_image.jpg'">
                   <div class="card-body">
                     <h5 class="card-title">3.Card title</h5>
                     <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This card has even longer content than the first to show that equal height action.</p>
@@ -113,7 +113,7 @@
             <div class="carousel-item">
               <div class="col-12 col-md-3">
                 <div class="card md-2">
-                  <img src="" class="card-img-top" alt="Card image" onerror="this.src='https://thumbs.dreamstime.com/b/no-image-available-icon-photo-camera-flat-vector-illustration-132483097.jpg'">
+                  <img src="" class="card-img-top" alt="Card image" onerror="this.src='/img/no_image.jpg'">
                   <div class="card-body">
                     <h5 class="card-title">4.Card title</h5>
                     <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This card has even longer content than the first to show that equal height action.</p>
@@ -125,7 +125,7 @@
             <div class="carousel-item">
               <div class="col-12 col-md-3">
                 <div class="card md-2">
-                  <img src="" class="card-img-top" alt="Card image" onerror="this.src='https://thumbs.dreamstime.com/b/no-image-available-icon-photo-camera-flat-vector-illustration-132483097.jpg'">
+                  <img src="" class="card-img-top" alt="Card image" onerror="this.src='/img/no_image.jpg'">
                   <div class="card-body">
                     <h5 class="card-title">5.Card title</h5>
                     <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This card has even longer content than the first to show that equal height action.</p>

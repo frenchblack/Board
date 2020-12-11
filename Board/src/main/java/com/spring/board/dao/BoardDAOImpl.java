@@ -1,6 +1,8 @@
 package com.spring.board.dao;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.inject.Inject;
 
@@ -12,6 +14,7 @@ import org.springframework.stereotype.Repository;
 import com.spring.board.common.Pagination;
 //import com.spring.board.BoardDAOTest;
 import com.spring.board.model.BoardVO;
+import com.spring.board.model.SearchVO;
 
 @Repository
 public class BoardDAOImpl implements BoardDAO {
@@ -21,8 +24,12 @@ public class BoardDAOImpl implements BoardDAO {
 	private SqlSession sqlSession;
 	
 	@Override
-	public List<BoardVO> getBoardList(Pagination pagination) throws Exception {
-		return sqlSession.selectList("boardMapper.getBoardList", pagination);
+	public List<BoardVO> getBoardList(Pagination pagination, SearchVO searchVO) throws Exception {
+		Map<String, Object> params = new HashMap<String, Object>();
+		params.put("pagination", pagination);
+		params.put("searchVO", searchVO);
+	
+		return sqlSession.selectList("boardMapper.getBoardList", params);
 	}
 
 	@Override
@@ -46,8 +53,8 @@ public class BoardDAOImpl implements BoardDAO {
 	}
 
 	@Override
-	public int getBoardCnt() throws Exception {
-		return sqlSession.selectOne("boardMapper.getBoardCnt");
+	public int getBoardCnt(SearchVO searchVO) throws Exception {
+		return sqlSession.selectOne("boardMapper.getBoardCnt", searchVO);
 	}
 
 }
