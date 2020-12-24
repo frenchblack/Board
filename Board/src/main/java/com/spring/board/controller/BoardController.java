@@ -1,7 +1,5 @@
 package com.spring.board.controller;
 
-import java.security.URIParameter;
-
 import javax.inject.Inject;
 
 import org.slf4j.Logger;
@@ -9,7 +7,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -19,6 +16,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.spring.board.common.Pagination;
 import com.spring.board.common.URIParser;
 import com.spring.board.model.BoardVO;
+import com.spring.board.model.CommentVO;
 import com.spring.board.model.SearchVO;
 import com.spring.board.service.BoardService;
 
@@ -75,6 +73,7 @@ public class BoardController {
 	public String getBoardContent(Model model, @RequestParam("board_cd") int board_cd) throws Exception {
 		logger.info("getBoardContent");
 		
+		model.addAttribute("commentVO", new CommentVO());
 		model.addAttribute("boardContent", boardService.getBoardContent(board_cd));
 		
 		return "/free/boardContent";

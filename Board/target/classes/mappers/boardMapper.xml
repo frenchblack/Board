@@ -60,6 +60,26 @@
 	    </if> 
 	  </trim>
 	</select>
+	<!-- 댓글 리스트 조회 -->
+	<select id="getCommentList" parameterType="hashmap" resultType="com.spring.board.model.CommentVO">
+		SELECT A.COMMENT_CD AS COMMENT_CD
+			  , A.BOARD_CD AS BOARD_CD
+			  , A.COMMENT_CLASS AS COMMENT_CLASS
+			  , A.USER_ID AS USER_ID
+			  , A.COMMENT_CONTENT AS COMMENT_CONTENT
+			  , A.IN_ID AS IN_ID
+		  FROM BOARD_COMMENT A
+		 WHERE A.BOARD_CD = #{board_cd}
+		 ORDER BY A.IN_DATE
+		 LIMIT #{pagination.startList}, #{pagination.listSize}
+	</select>
+	<!-- comment cnt -->
+	<select id="getCommentCnt" parameterType="int" resultType="int">
+		SELECT COUNT(1)
+		  FROM BOARD_COMMENT A
+		 WHERE A.BOARD_CD = #{board_cd}
+	</select>
+	<!-- board insert -->
 	<insert id="insertBoard" parameterType="com.spring.board.model.BoardVO">
 		INSERT
 		  INTO BOARD (
@@ -80,6 +100,29 @@
 			  , NOW()
 		 		)
 	</insert>
+	<!-- comment insert -->
+	<insert id="insertComment" parameterType="com.spring.board.model.CommentVO">
+		INSERT
+		  INTO BOARD_COMMENT (
+				BOARD_CD
+		      , COMMENT_CD
+			  , COMMENT_CLASS
+			  , USER_ID
+			  , COMMENT_CONTENT
+			  , IN_ID
+		     ) VALUES (
+			    #{board_cd}
+			  , (SELECT IFNULL(MAX(COMMENT_CD), 0) + 1
+			       FROM BOARD_COMMENT A
+				   WHERE A.BOARD_CD = #{board_cd}
+					 AND A.COMMENT_CLASS = #{comment_class})
+			  , #{comment_class}
+			  , #{user_id}
+			  , #{comment_content}
+			  , #{user_id}
+		)
+	</insert>
+	<!-- board update -->
 	<update id="updateBoard" parameterType="com.spring.board.model.BoardVO">
 		UPDATE BOARD
 		   SET TITLE = #{title}
@@ -88,9 +131,27 @@
 		     , UP_DATE = NOW()
 		 WHERE BOARD_CD = #{board_cd}
  	</update>
+	<!-- comment update -->
+	<update id="updateComment" parameterType="com.spring.board.model.CommentVO">
+		UPDATE BOARD_COMMENT
+		   SET COMMENT_CONTENT = #{comment_content}
+		     , UP_DATE = NOW()
+		 WHERE BOARD_CD = #{board_cd}
+		   AND COMMENT_CD = #{comment_cd}
+		   AND COMMENT_CLASS = #{comment_class}
+ 	</update>
+ 	<!-- board delete -->
 	<delete id="deleteBoard" parameterType="com.spring.board.model.BoardVO">
 		DELETE
 		  FROM BOARD
 		 WHERE BOARD_CD = #{board_cd}
+	</delete>
+ 	<!-- comment delete -->
+	<delete id="deleteComment" parameterType="com.spring.board.model.CommentVO">
+		DELETE
+		  FROM BOARD_COMMENT
+		 WHERE BOARD_CD = #{board_cd}
+		   AND COMMENT_CD = #{comment_cd}
+		   AND COMMENT_CLASS = #{comment_class}
 	</delete>
 </mapper>

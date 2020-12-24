@@ -16,6 +16,6 @@ function addJavascript(src, integrity, crossorigin) {
   document.write(wStr);
 }
 
-addJavascript("/js/jquery-3.5.1.slim.min.js");
+addJavascript("/js/jquery-3.5.1.min.js");
 addJavascript("/js/popper.min.js");
 addJavascript("/js/bootstrap.min.js");

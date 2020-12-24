@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="form" uri = "http://www.springframework.org/tags/form" %> 
 <!DOCTYPE html>
 <html lang="ko">
   <head>
@@ -25,7 +26,16 @@
         margin-top: 30px;
         margin-bottom: 30px;
       }
+
+      .div_comment_write {
+        margin-top: 20px;
+        padding-top: 20px; 
+        border-top: 1px solid grey; 
+      }
     </style>
+    <script type="text/javascript">
+
+    </script>
   </head>
   <body>
     <div id="wrapper">
@@ -54,6 +64,26 @@
           <button type="button" class="btn btn-sm btn-primary" id="btnDel">삭제</button>
           <button type="button" class="btn btn-sm btn-primary" id="btnList">목록</button>
         </div>
+        <!-- 댓글 -->
+        <div class="div_comment_write">
+          <form:form name="form" id="form" modelAttribute="commentVO" method="post" action="/RestBoard/Free/insertComment.do">
+            <form:hidden path="board_cd" value="${boardContent.board_cd}"/>
+            <form:hidden path="comment_class"/>
+            <div>
+              <form:textarea path="comment_content" class="form-control" rows="3" name="comment_content" id="comment_content" placeholder="내용을 입력해 주세요."/>
+            </div>
+            <div class="row">
+              <div class="col-sm-5">
+                <form:input path="user_id" class="form-control" name="user_id" id="user_id" placeholder="작성자를 입력해 주세요."/>
+              </div>
+              <button type="button" class="btn btn-sm btn-primary" id="btnCommentSave">저장</button>
+            </div>
+          </form:form>
+        </div>
+        <div class="my-3 bg-white rounded shadow-sm" style="padding-top: 10px">
+          <h6 class="border-bottom pb-2 mb-0">댓글</h6>
+          <div id="replyList"></div>
+        </div> 
       </div>
 
       <%@ include file = "/layout/tail.jsp" %>
@@ -78,6 +108,41 @@
         location.href = '/Board/Free/deleteBoard.do?board_cd=' + ${boardContent.board_cd};
       });
 
+      $( '#btnCommentSave' ).click( function() {
+        $("#form").submit();
+      })
+
+      function commetSuccess(result) {
+        var ptrHtml = "";
+
+        if(result.length < 1) {
+          ptrHtml = "등록된 댓글이 없습니다.";
+        } else {
+          $(result).each(function(){
+            ptrHtml += this.board_cd + "/" + this.comment_content;
+          })
+        }
+        $('#replyList').html(ptrHtml);
+      }
+
+      function getCommentList() {
+        var url = "/RestBoard/Free/getCommentList.do";
+        var params = {"board_cd" : "${boardContent.board_cd}"};
+
+        $.ajax({
+            type: 'POST'
+          , url: url
+          , data: params
+          , dataType: 'json'
+          , success: function (result) {
+            commetSuccess(result);
+          }
+        })
+      }
+
+      $(document).ready(function() {
+        getCommentList();
+      });
     </script>
   </body>
 </html>

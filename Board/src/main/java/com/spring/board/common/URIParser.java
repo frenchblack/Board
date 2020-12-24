@@ -15,7 +15,7 @@ public class URIParser {
 	
 	public String getFreeList() {
 		return freeList;
-	}
+	} 
 
 	public void setFreeList(String freeList) {
 		this.freeList = freeList;

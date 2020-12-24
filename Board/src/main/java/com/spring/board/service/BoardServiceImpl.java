@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import com.spring.board.common.Pagination;
 import com.spring.board.dao.BoardDAO;
 import com.spring.board.model.BoardVO;
+import com.spring.board.model.CommentVO;
 import com.spring.board.model.SearchVO;
 
 @Service
@@ -45,6 +46,32 @@ public class BoardServiceImpl implements BoardService {
 	@Override
 	public int getBoardCnt(SearchVO searchVO) throws Exception {
 		return boardDAO.getBoardCnt(searchVO);
+	}
+
+	@Override
+	public List<CommentVO> getCommentList(Pagination pagination, int board_cd) throws Exception {
+		return boardDAO.getCommentList(pagination, board_cd);
+	}
+
+	@Override
+	public int getCommentCnt(int board_cd) throws Exception {
+		return boardDAO.getCommentCnt(board_cd);
+	}
+
+	@Override
+	public int updateComment(CommentVO commentVO) throws Exception {
+		return boardDAO.updateComment(commentVO);
+	}
+
+	@Override
+	public int insertComment(CommentVO commentVO) throws Exception {
+		return boardDAO.insertComment(commentVO);
+	}
+
+	@Override
+	public int deleteComment(CommentVO commentVO) throws Exception {
+		return boardDAO.deleteComment(commentVO);
+		
 	}
 
 }

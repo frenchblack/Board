@@ -26,5 +26,7 @@
     <br>
     <a class="badge badge-light" href="https://to-dy.tistory.com/99?category=700248">페이징 참고</a>
     <br>
+    <a class="badge badge-light" href="https://tinkerbellbass.tistory.com/43">form:태그</a>
+    <br>
     tail
 </div>
