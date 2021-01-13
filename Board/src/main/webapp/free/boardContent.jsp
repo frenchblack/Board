@@ -91,11 +91,13 @@
 
     <script type="text/javascript" src="/js/common.js"></script>
     <script type="text/javascript">
+      //목록
       $( '#btnList' ).click( function(e) {
         e.preventDefault(); 
         location.href = '/Board/Free/getBoardList.do';
       });
 
+      //글 수정
       $( '#btnUpdate' ).click( function() {
         var url = "/Board/Free/updateForm.do";
         url += "?board_cd=" + ${boardContent.board_cd};
@@ -104,14 +106,17 @@
         location.href = url;
       });
 
+      //글 삭제
       $( '#btnDel' ).click( function() {
         location.href = '/Board/Free/deleteBoard.do?board_cd=' + ${boardContent.board_cd};
       });
 
+      //댓글 저장
       $( '#btnCommentSave' ).click( function() {
-        $("#form").submit();
+        getCommentInsert();
       })
 
+      //댓글 HTML
       function commetSuccess(result) {
         var ptrHtml = "";
 
@@ -119,12 +124,19 @@
           ptrHtml = "등록된 댓글이 없습니다.";
         } else {
           $(result).each(function(){
-            ptrHtml += this.board_cd + "/" + this.comment_content;
+            ptrHtml += '<div class="comment_item">';
+            ptrHtml +=  '<div>' + this.comment_content + '</div>';
+            ptrHtml +=  '<div class="row">';
+            ptrHtml +=    '<div class="col-sm-5">' + this.user_id + '</div>';
+            ptrHtml +=    '<div class="col-sm-5">' + this.in_date + '</div>';
+            ptrHtml +=  '</div>';
+            ptrHtml += '</div>';
           })
         }
         $('#replyList').html(ptrHtml);
       }
 
+      //댓글 조회 함수
       function getCommentList() {
         var url = "/RestBoard/Free/getCommentList.do";
         var params = {"board_cd" : "${boardContent.board_cd}"};
@@ -140,6 +152,46 @@
         })
       }
 
+      //댓글 저장 함수
+      function getCommentInsert() {
+        var url = "/RestBoard/Free/insertComment.do";
+        var params = JSON.stringify($("#form").serializeObject());
+
+        $.ajax({
+            type: 'POST'
+          , url: url
+          , data: params
+          , dataType: 'json'
+          , contentType : "application/json; charset=utf-8"
+          , success: function (result) {
+            console.log(result);
+              getCommentList();
+          }
+          , error : function (xhr, status, error) {
+            alert("댓글을 저장하지 못하였습니다.");
+          }
+        })
+      }
+
+      //serializeObject
+      $.fn.serializeObject = function()
+      {
+         var o = {};
+         var a = this.serializeArray();
+         $.each(a, function() {
+             if (o[this.name]) {
+                 if (!o[this.name].push) {
+                     o[this.name] = [o[this.name]];
+                 }
+                 o[this.name].push(this.value || '');
+             } else {
+                 o[this.name] = this.value || '';
+             }
+         });
+         return o;
+      };
+
+      //READY 이벤트
       $(document).ready(function() {
         getCommentList();
       });

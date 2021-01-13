@@ -68,6 +68,7 @@
 			  , A.USER_ID AS USER_ID
 			  , A.COMMENT_CONTENT AS COMMENT_CONTENT
 			  , A.IN_ID AS IN_ID
+			  , A.IN_DATE AS IN_DATE
 		  FROM BOARD_COMMENT A
 		 WHERE A.BOARD_CD = #{board_cd}
 		 ORDER BY A.IN_DATE
@@ -120,7 +121,7 @@
 			  , #{user_id}
 			  , #{comment_content}
 			  , #{user_id}
-		)
+				)
 	</insert>
 	<!-- board update -->
 	<update id="updateBoard" parameterType="com.spring.board.model.BoardVO">

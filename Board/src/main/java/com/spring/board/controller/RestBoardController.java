@@ -6,8 +6,10 @@ import javax.inject.Inject;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.http.MediaType;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -52,17 +54,18 @@ public class RestBoardController {
 		return boardService.getCommentList(pagination, board_cd);
 	}
 	
-	@RequestMapping(value = "/Free/insertComment", method = RequestMethod.POST)
-	public String saveComment(@ModelAttribute("commentVO") CommentVO commentVO
-							, RedirectAttributes rttr) throws Exception {
+	@RequestMapping(value = "/Free/insertComment", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
+	public String saveComment(@RequestBody CommentVO commentVO) throws Exception {
 		logger.info("saveComment");
+		
+		int result;
 		if ( commentVO.getComment_cd() == 0 ) {
-			boardService.insertComment(commentVO);
+			result = boardService.insertComment(commentVO);
 		} else {
-			boardService.updateComment(commentVO);
+			result = boardService.updateComment(commentVO);
 		}
 		
-		return "redirect:/Board/Free/getCommentList.do";
+		return result + "";
 	}
 	
 	@RequestMapping(value = "/Free/deleteComment", method = RequestMethod.GET)
