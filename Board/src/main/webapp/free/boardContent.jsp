@@ -91,6 +91,9 @@
 
     <script type="text/javascript" src="/js/common.js"></script>
     <script type="text/javascript">
+      //-------------------------------------------
+      //--------------------이벤트-----------------
+      //-------------------------------------------
       //목록
       $( '#btnList' ).click( function(e) {
         e.preventDefault(); 
@@ -99,7 +102,7 @@
 
       //글 수정
       $( '#btnUpdate' ).click( function() {
-        var url = "/Board/Free/updateForm.do";
+        let url = "/Board/Free/updateForm.do";
         url += "?board_cd=" + ${boardContent.board_cd};
         url += "&mode=update";
 
@@ -116,19 +119,98 @@
         getCommentInsert();
       })
 
-      //댓글 HTML
-      function commetSuccess(result) {
-        var ptrHtml = "";
+      //READY 이벤트
+      $(document).ready(function() {
+        getCommentList();
+      });
 
-        if(result.length < 1) {
+      //-------------------------------------------
+      //--------------------함수-----------------
+      //-------------------------------------------
+      //댓글 수정
+      function fn_updateComment( idCd, content ) {
+        console.log('fn_updateComment:' + idCd);
+        let textarea = '';
+        let button = '';
+        let contTarget = '#content' + idCd;
+        let buttonTarget = '#commBtn' + idCd;
+
+        textarea += '<textarea name="comment_content" id="content' + idCd + '" class="form-control" rows="3">' + content + '</textarea>';
+
+        button += '<button type="button" class="btn btn-sm btn-secondary" onclick="fn_saveUpdateComment(\'' + idCd + '\')">저장</button>';
+        button += '<button type="button" class="btn btn-sm btn-secondary ml-1" onclick="fn_cancelComment(\'' + idCd + '\',\'' + content + '\')">취소</button>';
+
+        $(contTarget).html(textarea);
+        $(buttonTarget).html(button);
+      }
+
+      //수정한 댓글 저장
+      function fn_saveUpdateComment( idCd ) {
+        console.log("fn_saveUpdateComment" + "#commForm" + idCd);
+        let url = "/RestBoard/Free/insertComment.do";
+        let params = JSON.stringify($( "#commForm" + idCd ).serializeObject());
+        console.log(params);
+
+        // $.ajax({
+        //     type: 'POST'
+        //   , url: url
+        //   , data: params
+        //   , dataType: 'json'
+        //   , contentType : "application/json; charset=utf-8"
+        //   , success: function (result) {
+        //     console.log(result);
+        //       getCommentList();
+        //   }
+        //   , error : function (xhr, status, error) {
+        //     alert("댓글을 저장하지 못하였습니다.");
+        //   }
+        // })
+      }
+
+      //댓글 수정 취소
+      function fn_cancelComment( idCd, org_content ) {
+        let div_cont = '';
+        let button = '';
+        let contTarget = '#content' + idCd;
+        let buttonTarget = '#commBtn' + idCd;
+
+        div_cont += org_content;
+
+        button += '<button type="button" class="btn btn-sm btn-secondary" onclick="fn_updateComment(\'' + idCd + '\',\'' + org_content + '\')">수정</button>';
+        button += '<button type="button" class="btn btn-sm btn-secondary ml-1">삭제</button>';
+
+        $(contTarget).html(div_cont);
+        $(buttonTarget).html(button);
+      }
+
+      //댓글 HTML
+      function commetSuccess( result ) {
+        let ptrHtml = "";
+
+        if ( result.length < 1 ) {
           ptrHtml = "등록된 댓글이 없습니다.";
         } else {
-          $(result).each(function(){
-            ptrHtml += '<div class="comment_item">';
-            ptrHtml +=  '<div>' + this.comment_content + '</div>';
+          $(result).each(function() {
+            let idCd = "_" + this.comment_cd + "_" + this.comment_class;
+
+            ptrHtml += '<div class="comment_item border-bottom p-2">';
+            ptrHtml +=  '<form id="commForm' + idCd + '">';
+            ptrHtml +=    '<input type="hidden" name="board_cd" value="' + this.board_cd + '"></input>'
+            ptrHtml +=    '<input type="hidden" name="comment_cd" value="' + this.comment_cd + '"></input>'
+            ptrHtml +=    '<input type="hidden" name="comment_class" value="' + this.comment_class + '"></input>'
+            ptrHtml +=    '<div id="content' + idCd + '">' + this.comment_content + '</div>';
+            ptrHtml +=  '</form>';
             ptrHtml +=  '<div class="row">';
-            ptrHtml +=    '<div class="col-sm-5">' + this.user_id + '</div>';
-            ptrHtml +=    '<div class="col-sm-5">' + this.in_date + '</div>';
+            ptrHtml +=    '<div class="col-sm-6" style="font: 0.8rem grey;">' + this.user_id + '</div>';
+            ptrHtml +=    '<div class="col-sm-6" style="text-align: right;font: 0.8rem grey;">' + this.in_date + '</div>';
+            ptrHtml +=  '</div>';
+            ptrHtml +=  '<div class="row justify-content-end">';
+            ptrHtml +=    '<div class="col-sm-3">';
+            ptrHtml +=      '<div class="float-right" id="commBtn' + idCd + '">';
+            ptrHtml +=        '<button type="button" class="btn btn-sm btn-secondary" onclick="fn_updateComment(\'' + idCd + '\',\'' + this.comment_content + '\')">수정</button>';
+            ptrHtml +=        '<button type="button" class="btn btn-sm btn-secondary ml-1">삭제</button>';
+            ptrHtml +=      '</div>';
+            ptrHtml +=    '</div>';
             ptrHtml +=  '</div>';
             ptrHtml += '</div>';
           })
@@ -138,8 +220,8 @@
 
       //댓글 조회 함수
       function getCommentList() {
-        var url = "/RestBoard/Free/getCommentList.do";
-        var params = {"board_cd" : "${boardContent.board_cd}"};
+        let url = "/RestBoard/Free/getCommentList.do";
+        let params = {"board_cd" : "${boardContent.board_cd}"};
 
         $.ajax({
             type: 'POST'
@@ -154,8 +236,8 @@
 
       //댓글 저장 함수
       function getCommentInsert() {
-        var url = "/RestBoard/Free/insertComment.do";
-        var params = JSON.stringify($("#form").serializeObject());
+        let url = "/RestBoard/Free/insertComment.do";
+        let params = JSON.stringify($("#form").serializeObject());
 
         $.ajax({
             type: 'POST'
@@ -174,10 +256,9 @@
       }
 
       //serializeObject
-      $.fn.serializeObject = function()
-      {
-         var o = {};
-         var a = this.serializeArray();
+      $.fn.serializeObject = function() {
+         let o = {};
+         let a = this.serializeArray();
          $.each(a, function() {
              if (o[this.name]) {
                  if (!o[this.name].push) {
@@ -190,11 +271,6 @@
          });
          return o;
       };
-
-      //READY 이벤트
-      $(document).ready(function() {
-        getCommentList();
-      });
     </script>
   </body>
 </html>
