@@ -116,7 +116,7 @@
 
       //댓글 저장
       $( '#btnCommentSave' ).click( function() {
-        getCommentInsert();
+        saveComment('form');
       })
 
       //READY 이벤트
@@ -129,42 +129,20 @@
       //-------------------------------------------
       //댓글 수정
       function fn_updateComment( idCd, content ) {
-        console.log('fn_updateComment:' + idCd);
         let textarea = '';
         let button = '';
         let contTarget = '#content' + idCd;
         let buttonTarget = '#commBtn' + idCd;
 
-        textarea += '<textarea name="comment_content" id="content' + idCd + '" class="form-control" rows="3">' + content + '</textarea>';
+        textarea += '<textarea name="comment_content" id="commCont' + idCd + '" class="form-control" rows="3">' + content + '</textarea>';
 
-        button += '<button type="button" class="btn btn-sm btn-secondary" onclick="fn_saveUpdateComment(\'' + idCd + '\')">저장</button>';
+        button += '<button type="button" class="btn btn-sm btn-secondary" onclick="saveComment(\'commForm' + idCd + '\')">저장</button>';
         button += '<button type="button" class="btn btn-sm btn-secondary ml-1" onclick="fn_cancelComment(\'' + idCd + '\',\'' + content + '\')">취소</button>';
 
         $(contTarget).html(textarea);
+        $( '#commCont' + idCd ).focus(); 
+        $( '#commCont' + idCd ).val($( '#commCont' + idCd ).val());
         $(buttonTarget).html(button);
-      }
-
-      //수정한 댓글 저장
-      function fn_saveUpdateComment( idCd ) {
-        console.log("fn_saveUpdateComment" + "#commForm" + idCd);
-        let url = "/RestBoard/Free/insertComment.do";
-        let params = JSON.stringify($( "#commForm" + idCd ).serializeObject());
-        console.log(params);
-
-        // $.ajax({
-        //     type: 'POST'
-        //   , url: url
-        //   , data: params
-        //   , dataType: 'json'
-        //   , contentType : "application/json; charset=utf-8"
-        //   , success: function (result) {
-        //     console.log(result);
-        //       getCommentList();
-        //   }
-        //   , error : function (xhr, status, error) {
-        //     alert("댓글을 저장하지 못하였습니다.");
-        //   }
-        // })
       }
 
       //댓글 수정 취소
@@ -177,7 +155,7 @@
         div_cont += org_content;
 
         button += '<button type="button" class="btn btn-sm btn-secondary" onclick="fn_updateComment(\'' + idCd + '\',\'' + org_content + '\')">수정</button>';
-        button += '<button type="button" class="btn btn-sm btn-secondary ml-1">삭제</button>';
+        button += '<button type="button" class="btn btn-sm btn-secondary ml-1" onclick="delComment(\'commForm' + idCd + '\')">삭제</button>';
 
         $(contTarget).html(div_cont);
         $(buttonTarget).html(button);
@@ -208,7 +186,7 @@
             ptrHtml +=    '<div class="col-sm-3">';
             ptrHtml +=      '<div class="float-right" id="commBtn' + idCd + '">';
             ptrHtml +=        '<button type="button" class="btn btn-sm btn-secondary" onclick="fn_updateComment(\'' + idCd + '\',\'' + this.comment_content + '\')">수정</button>';
-            ptrHtml +=        '<button type="button" class="btn btn-sm btn-secondary ml-1">삭제</button>';
+            ptrHtml +=        '<button type="button" class="btn btn-sm btn-secondary ml-1" onclick="delComment(\'commForm' + idCd + '\')">삭제</button>';
             ptrHtml +=      '</div>';
             ptrHtml +=    '</div>';
             ptrHtml +=  '</div>';
@@ -235,9 +213,10 @@
       }
 
       //댓글 저장 함수
-      function getCommentInsert() {
+      function saveComment( fId ) {
         let url = "/RestBoard/Free/insertComment.do";
-        let params = JSON.stringify($("#form").serializeObject());
+        let formId = '#' + fId;
+        let params = JSON.stringify($(formId).serializeObject());
 
         $.ajax({
             type: 'POST'
@@ -251,6 +230,29 @@
           }
           , error : function (xhr, status, error) {
             alert("댓글을 저장하지 못하였습니다.");
+          }
+        })
+      }
+
+      //댓글 삭제
+      function delComment( idCd ) {
+        let url = "/RestBoard/Free/deleteComment.do";
+        let formId = '#' + idCd;
+        let params = JSON.stringify($(formId).serializeObject());
+
+        $.ajax({
+            type: 'POST'
+          , url: url
+          , data: params
+          , dataType: 'json'
+          , contentType : "application/json; charset=utf-8"
+          , success: function (result) {
+            console.log(result);
+              alert("댓글이 삭제 되었습니다.");
+              getCommentList();
+          }
+          , error : function (xhr, status, error) {
+            alert("댓글을 삭제하지 못하였습니다.");
           }
         })
       }

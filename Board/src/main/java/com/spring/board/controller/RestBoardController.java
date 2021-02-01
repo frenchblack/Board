@@ -56,7 +56,7 @@ public class RestBoardController {
 	
 	@RequestMapping(value = "/Free/insertComment", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
 	public String saveComment(@RequestBody CommentVO commentVO) throws Exception {
-		logger.info("saveComment");
+		logger.info("saveComment" + commentVO);
 		
 		int result;
 		if ( commentVO.getComment_cd() == 0 ) {
@@ -68,12 +68,14 @@ public class RestBoardController {
 		return result + "";
 	}
 	
-	@RequestMapping(value = "/Free/deleteComment", method = RequestMethod.GET)
-	public String deleteComment(@ModelAttribute("commentVO") CommentVO commentVO
-							  , RedirectAttributes rttr) throws Exception {
-		logger.info("deleteComment");
-		boardService.deleteComment(commentVO);
+	@RequestMapping(value = "/Free/deleteComment", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
+	public String deleteComment(@RequestBody CommentVO commentVO) throws Exception {
+		logger.info("deleteComment:" + commentVO);
 		
-		return "redirect:/Board/Free/getCommentList.do";
+		int result;
+		
+		result = boardService.deleteComment(commentVO);
+		
+		return result + "";
 	}
 }
