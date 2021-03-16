@@ -1,6 +1,7 @@
 package com.spring.board.controller;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.inject.Inject;
 
@@ -55,17 +56,17 @@ public class RestBoardController {
 	}
 	
 	@RequestMapping(value = "/Free/insertComment", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
-	public String saveComment(@RequestBody CommentVO commentVO) throws Exception {
+	public Map<String, Integer> saveComment(@RequestBody CommentVO commentVO) throws Exception {
 		logger.info("saveComment" + commentVO);
 		
-		int result;
+		Map<String, Integer> result;
 		if ( commentVO.getComment_cd() == 0 ) {
 			result = boardService.insertComment(commentVO);
 		} else {
 			result = boardService.updateComment(commentVO);
 		}
 		
-		return result + "";
+		return result;
 	}
 	
 	@RequestMapping(value = "/Free/deleteComment", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)

@@ -103,6 +103,12 @@
 	</insert>
 	<!-- comment insert -->
 	<insert id="insertComment" parameterType="com.spring.board.model.CommentVO">
+		<selectKey resultType="int" keyProperty="comment_cd" order="BEFORE">
+			SELECT IFNULL(MAX(COMMENT_CD), 0) + 1
+			  FROM BOARD_COMMENT A
+			 WHERE A.BOARD_CD = #{board_cd}
+			   AND A.COMMENT_CLASS = #{comment_class}
+		</selectKey>
 		INSERT
 		  INTO BOARD_COMMENT (
 				BOARD_CD
@@ -113,10 +119,7 @@
 			  , IN_ID
 		     ) VALUES (
 			    #{board_cd}
-			  , (SELECT IFNULL(MAX(COMMENT_CD), 0) + 1
-			       FROM BOARD_COMMENT A
-				   WHERE A.BOARD_CD = #{board_cd}
-					 AND A.COMMENT_CLASS = #{comment_class})
+			  , #{comment_cd}
 			  , #{comment_class}
 			  , #{user_id}
 			  , #{comment_content}

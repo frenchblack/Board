@@ -1,6 +1,7 @@
 package com.spring.board.service;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.inject.Inject;
 
@@ -59,12 +60,12 @@ public class BoardServiceImpl implements BoardService {
 	}
 
 	@Override
-	public int updateComment(CommentVO commentVO) throws Exception {
+	public Map<String, Integer> updateComment(CommentVO commentVO) throws Exception {
 		return boardDAO.updateComment(commentVO);
 	}
 
 	@Override
-	public int insertComment(CommentVO commentVO) throws Exception {
+	public Map<String, Integer> insertComment(CommentVO commentVO) throws Exception {
 		return boardDAO.insertComment(commentVO);
 	}
 

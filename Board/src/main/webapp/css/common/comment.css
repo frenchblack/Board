@@ -1,0 +1,26 @@
+.div_comment_write {
+	margin-top: 20px;
+	padding-top: 20px; 
+	border-top: 1px solid grey; 
+}
+
+.blinking{ 
+	-webkit-animation:blink 1.5s ease-in-out alternate 8;
+ 	-moz-animation:blink 1.5s ease-in-out alternate 8;
+  	animation:blink 1.5s ease-in-out alternate 8;
+}
+
+@-webkit-keyframes blink{ 
+   	0% {background-color: : none;} 
+   	100% {background-color : yellow;} 
+ } 
+
+ @-moz-keyframes blink{ 
+   	0% {background-color: : none;} 
+   	100% {background-color : yellow;} 
+ }
+
+ @keyframes blink{ 
+   	0% {background-color: : none;} 
+   	100% {background-color : yellow;} 
+ }

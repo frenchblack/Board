@@ -1,11 +1,18 @@
 //console.log('Begin load comment.js');
 var boardCd = scriptQuery();
+
+var commMessage = {
+  update : "수정한 댓글을 저장 하시겠습니까?"
+, cnacel : "댓글 수정을 취소 하시겠습니까?"
+, save : "작성한 댓글을 저장 하시겠습니까?"
+, del : "댓글을 삭제 하시겠습니까?"
+}
 //-------------------------------------------
 //--------------------이벤트-----------------
 //-------------------------------------------
 //댓글 저장
 $( '#btnCommentSave' ).click( function() {
-  saveComment('form');
+  confirm(commMessage.save) ? saveComment('form') : false;
 })
 
 //READY 이벤트
@@ -25,8 +32,8 @@ function fn_updateComment( idCd, content ) {
 
   textarea += '<textarea name="comment_content" id="commCont' + idCd + '" class="form-control" rows="3">' + content + '</textarea>';
 
-  button += '<button type="button" class="btn btn-sm btn-secondary" onclick="saveComment(\'commForm' + idCd + '\')">저장</button>';
-  button += '<button type="button" class="btn btn-sm btn-secondary ml-1" onclick="fn_cancelComment(\'' + idCd + '\',\'' + content + '\')">취소</button>';
+  button += '<button type="button" class="btn btn-sm btn-secondary" onclick="confirm(commMessage.update) ? saveComment(\'commForm' + idCd + '\') : false;">저장</button>';
+  button += '<button type="button" class="btn btn-sm btn-secondary ml-1" onclick="confirm(commMessage.cnacel) ? fn_cancelComment(\'' + idCd + '\',\'' + content + '\') : false;">취소</button>';
 
   $(contTarget).html(textarea);
   $( '#commCont' + idCd ).focus(); 
@@ -44,23 +51,33 @@ function fn_cancelComment( idCd, org_content ) {
   div_cont += org_content;
 
   button += '<button type="button" class="btn btn-sm btn-secondary" onclick="fn_updateComment(\'' + idCd + '\',\'' + org_content + '\')">수정</button>';
-  button += '<button type="button" class="btn btn-sm btn-secondary ml-1" onclick="delComment(\'commForm' + idCd + '\')">삭제</button>';
+  button += '<button type="button" class="btn btn-sm btn-secondary ml-1" onclick="confirm(commMessage.del) ? delComment(\'commForm' + idCd + '\') : false;">삭제</button>';
 
   $(contTarget).html(div_cont);
   $(buttonTarget).html(button);
 }
 
 //댓글 HTML
-function commetSuccess( result ) {
+function commetSuccess( result, blinkComm ) {
   let ptrHtml = "";
+  let blicnkObj = {
+    comment_cd : ""
+  , comment_class : ""
+  };
+
+  if ( !isEmpty( blinkComm ) ) {
+    blicnkObj.comment_cd = blinkComm.comment_cd;
+    blicnkObj.comment_class = blinkComm.comment_class;
+  }
 
   if ( result.length < 1 ) {
     ptrHtml = "등록된 댓글이 없습니다.";
   } else {
     $(result).each(function() {
+      console.log(this.comment_cd + "/" + blicnkObj.comment_cd + "/" + blicnkObj.comment_class + "/"+ ((this.comment_cd == blicnkObj.comment_cd) && (this.comment_class == blicnkObj.comment_class)));
       let idCd = "_" + this.comment_cd + "_" + this.comment_class;
 
-      ptrHtml += '<div class="comment_item border-bottom p-2">';
+      ptrHtml += '<div class="comment_item border-bottom p-2' + ( (this.comment_cd == blicnkObj.comment_cd) && (this.comment_class == blicnkObj.comment_class) ? " blinking" : "" ) + '">';
       ptrHtml +=  '<form id="commForm' + idCd + '">';
       ptrHtml +=    '<input type="hidden" name="board_cd" value="' + this.board_cd + '"></input>'
       ptrHtml +=    '<input type="hidden" name="comment_cd" value="' + this.comment_cd + '"></input>'
@@ -75,7 +92,7 @@ function commetSuccess( result ) {
       ptrHtml +=    '<div class="col-sm-3">';
       ptrHtml +=      '<div class="float-right" id="commBtn' + idCd + '">';
       ptrHtml +=        '<button type="button" class="btn btn-sm btn-secondary" onclick="fn_updateComment(\'' + idCd + '\',\'' + this.comment_content + '\')">수정</button>';
-      ptrHtml +=        '<button type="button" class="btn btn-sm btn-secondary ml-1" onclick="delComment(\'commForm' + idCd + '\')">삭제</button>';
+      ptrHtml +=        '<button type="button" class="btn btn-sm btn-secondary ml-1" onclick="confirm(commMessage.del) ? delComment(\'commForm' + idCd + '\') : false;">삭제</button>';
       ptrHtml +=      '</div>';
       ptrHtml +=    '</div>';
       ptrHtml +=  '</div>';
@@ -83,10 +100,15 @@ function commetSuccess( result ) {
     })
   }
   $('#replyList').html(ptrHtml);
+  let focusTag = '#content' + "_" + blicnkObj.comment_cd + "_" + blicnkObj.comment_class;
+  console.log($( focusTag ).attr("id") + "/" + focusTag );
+  if ( !isEmpty( blinkComm ) ) {
+    $( focusTag ).get(0).scrollIntoView({block:"center"});
+  }
 }
 
 //댓글 조회 함수
-function getCommentList() {
+function getCommentList( blinkComm ) {
   let url = "/RestBoard/Free/getCommentList.do";
   let params = {"board_cd" : boardCd.board_cd};
   //console.log(params);
@@ -96,8 +118,8 @@ function getCommentList() {
     , url: url
     , data: params
     , dataType: 'json'
-    , success: function (result) {
-      commetSuccess(result);
+    , success: function ( result ) {
+      commetSuccess(result, blinkComm);
     }
   })
 }
@@ -115,8 +137,8 @@ function saveComment( fId ) {
     , dataType: 'json'
     , contentType : "application/json; charset=utf-8"
     , success: function (result) {
-      //console.log(result);
-        getCommentList();
+        console.log(result);
+        getCommentList(result);
     }
     , error : function (xhr, status, error) {
       alert("댓글을 저장하지 못하였습니다.");

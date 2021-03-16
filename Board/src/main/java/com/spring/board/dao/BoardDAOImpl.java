@@ -74,13 +74,27 @@ public class BoardDAOImpl implements BoardDAO {
 	}
 
 	@Override
-	public int updateComment(CommentVO commentVO) throws Exception {
-		return sqlSession.update("boardMapper.updateComment", commentVO);
+	public Map<String, Integer> updateComment(CommentVO commentVO) throws Exception {
+		sqlSession.update("boardMapper.updateComment", commentVO);
+		
+		Map<String, Integer> result = new HashMap<String, Integer>();
+		
+		result.put("comment_cd", commentVO.getComment_cd());
+		result.put("comment_class", commentVO.getComment_class());
+		
+		return result;
 	}
 
 	@Override
-	public int insertComment(CommentVO commentVO) throws Exception {
-		return sqlSession.insert("boardMapper.insertComment", commentVO);
+	public Map<String, Integer> insertComment(CommentVO commentVO) throws Exception {
+		int comm_cd = sqlSession.insert("boardMapper.insertComment", commentVO);
+		logger.info(commentVO.getComment_cd() + "/" + comm_cd);
+		
+		Map<String, Integer> result = new HashMap<String, Integer>();
+		result.put("comment_cd", commentVO.getComment_cd());
+		result.put("comment_class", commentVO.getComment_class());
+		
+		return result;
 	}
 
 	@Override

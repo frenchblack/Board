@@ -35,6 +35,14 @@ function scriptQuery() {
      return queries;
 }
 
+//null체크
+function isEmpty(str){        
+    if(typeof str == "undefined" || str == null || str == "")
+        return true;
+    else
+        return false ;
+}  
+
 addJavascript("/js/jquery-3.5.1.min.js");
 addJavascript("/js/popper.min.js");
 addJavascript("/js/bootstrap.min.js");
