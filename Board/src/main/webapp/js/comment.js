@@ -70,11 +70,14 @@ function commetSuccess( result, blinkComm ) {
     blicnkObj.comment_class = blinkComm.comment_class;
   }
 
+  console.log(result);
+  let commentList = result.commentList;
+
   if ( result.length < 1 ) {
     ptrHtml = "등록된 댓글이 없습니다.";
   } else {
-    $(result).each(function() {
-      console.log(this.comment_cd + "/" + blicnkObj.comment_cd + "/" + blicnkObj.comment_class + "/"+ ((this.comment_cd == blicnkObj.comment_cd) && (this.comment_class == blicnkObj.comment_class)));
+    $(commentList).each(function() {
+      //console.log(this.comment_cd + "/" + blicnkObj.comment_cd + "/" + blicnkObj.comment_class + "/"+ ((this.comment_cd == blicnkObj.comment_cd) && (this.comment_class == blicnkObj.comment_class)));
       let idCd = "_" + this.comment_cd + "_" + this.comment_class;
 
       ptrHtml += '<div class="comment_item border-bottom p-2' + ( (this.comment_cd == blicnkObj.comment_cd) && (this.comment_class == blicnkObj.comment_class) ? " blinking" : "" ) + '">';
@@ -101,7 +104,7 @@ function commetSuccess( result, blinkComm ) {
   }
   $('#replyList').html(ptrHtml);
   let focusTag = '#content' + "_" + blicnkObj.comment_cd + "_" + blicnkObj.comment_class;
-  console.log($( focusTag ).attr("id") + "/" + focusTag );
+  //console.log($( focusTag ).attr("id") + "/" + focusTag );
   if ( !isEmpty( blinkComm ) ) {
     $( focusTag ).get(0).scrollIntoView({block:"center"});
   }
@@ -110,7 +113,12 @@ function commetSuccess( result, blinkComm ) {
 //댓글 조회 함수
 function getCommentList( blinkComm ) {
   let url = "/RestBoard/Free/getCommentList.do";
-  let params = {"board_cd" : boardCd.board_cd};
+  let params = { "board_cd" : boardCd.board_cd
+               , "listSize" : 10
+               , "rangeSize" : 5
+               , "page" : 1
+               , "range" : 1
+             };
   //console.log(params);
 
   $.ajax({
@@ -137,7 +145,7 @@ function saveComment( fId ) {
     , dataType: 'json'
     , contentType : "application/json; charset=utf-8"
     , success: function (result) {
-        console.log(result);
+        //console.log(result);
         getCommentList(result);
     }
     , error : function (xhr, status, error) {
