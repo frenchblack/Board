@@ -107,4 +107,36 @@ public class Pagination {
 			this.next = false;
 		}
 	}
+	
+	public void pageInfo(int page, int range, int listCnt, boolean isEndPage) {
+		this.listCnt = listCnt; //게시물 총 개수
+		
+		//전체 페이지수 
+		this.pageCnt = (int) Math.ceil((double)this.listCnt/listSize);
+
+		//현재 페이지를 마지막 페이지로 변경
+		this.page = this.pageCnt;
+		
+		//현재 범위를 마지막 범위로 변경
+		this.range = (int) Math.ceil((double) this.pageCnt/this.rangeSize);
+		
+		//시작 페이지
+		this.startPage = (this.range - 1) * rangeSize + 1 ;
+
+		//끝 페이지
+		this.endPage = this.range * rangeSize;
+				
+		//게시판 시작번호
+		this.startList = (this.page - 1) * listSize;
+		
+		//이전 버튼 상태
+		this.prev = this.page == 1 ? false : true;
+		
+		//다음 버튼 상태
+		this.next = endPage > pageCnt ? false : true;
+		if ( this.endPage > this.pageCnt ) {
+			this.endPage = this.pageCnt;
+			this.next = false;
+		}
+	}
 }

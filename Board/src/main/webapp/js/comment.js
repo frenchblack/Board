@@ -1,5 +1,6 @@
 //console.log('Begin load comment.js');
 var boardCd = scriptQuery();
+addJavascript("/js/util/pagination.js");
 
 var commMessage = {
   update : "수정한 댓글을 저장 하시겠습니까?"
@@ -7,6 +8,12 @@ var commMessage = {
 , save : "작성한 댓글을 저장 하시겠습니까?"
 , del : "댓글을 삭제 하시겠습니까?"
 }
+
+var pageInfo = {
+  page : 1
+, range : 1
+}
+
 //-------------------------------------------
 //--------------------이벤트-----------------
 //-------------------------------------------
@@ -101,25 +108,34 @@ function commetSuccess( result, blinkComm ) {
       ptrHtml +=  '</div>';
       ptrHtml += '</div>';
     })
+
+    ptrHtml += ptrPaginationToHtml(result.pagination, "/RestBoard/Free/getCommentList.do");
+    pageInfo.page = result.pagination.page;
+    pageInfo.range = result.pagination.range;
   }
+
   $('#replyList').html(ptrHtml);
   let focusTag = '#content' + "_" + blicnkObj.comment_cd + "_" + blicnkObj.comment_class;
-  //console.log($( focusTag ).attr("id") + "/" + focusTag );
-  if ( !isEmpty( blinkComm ) ) {
+  console.log($( focusTag ).attr("id") + "/" + focusTag );
+  if ( !isEmpty( $( focusTag ).attr("id") ) ) {
     $( focusTag ).get(0).scrollIntoView({block:"center"});
   }
 }
 
+function pagingOnClick( url, page, range, location) {
+  getCommentList( null, page, range );
+}
+
 //댓글 조회 함수
-function getCommentList( blinkComm ) {
+function getCommentList( blinkComm, page, range) {
   let url = "/RestBoard/Free/getCommentList.do";
   let params = { "board_cd" : boardCd.board_cd
                , "listSize" : 10
                , "rangeSize" : 5
-               , "page" : 1
-               , "range" : 1
+               , "page" : page || 1 
+               , "range" :  range || 1 
              };
-  //console.log(params);
+  console.log(params);
 
   $.ajax({
       type: 'POST'
@@ -145,8 +161,14 @@ function saveComment( fId ) {
     , dataType: 'json'
     , contentType : "application/json; charset=utf-8"
     , success: function (result) {
-        //console.log(result);
-        getCommentList(result);
+        switch(result.mode) {
+          case 0 :
+            getCommentList(result, -1, -1);
+            break;
+          case 1 :
+            getCommentList(result, pageInfo.page, pageInfo.range);
+            break;
+        }
     }
     , error : function (xhr, status, error) {
       alert("댓글을 저장하지 못하였습니다.");

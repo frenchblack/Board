@@ -45,7 +45,11 @@ public class RestBoardController {
 		pagination.setListSize(listSize);
 		pagination.setRangeSize(rangeSize);
 		
-		pagination.pageInfo(page, range, listCnt);
+		if ( page < 0 && range < 0 ) {
+			pagination.pageInfo(page, range, listCnt, true);
+		} else {
+			pagination.pageInfo(page, range, listCnt);
+		}
 		
 		URIParser uriParser = new URIParser();
 		
@@ -67,12 +71,16 @@ public class RestBoardController {
 	public Map<String, Integer> saveComment(@RequestBody CommentVO commentVO) throws Exception {
 		logger.info("saveComment" + commentVO);
 		
+		int comment_cd = commentVO.getComment_cd();
 		Map<String, Integer> result;
-		if ( commentVO.getComment_cd() == 0 ) {
+		
+		if ( comment_cd == 0 ) {
 			result = boardService.insertComment(commentVO);
 		} else {
 			result = boardService.updateComment(commentVO);
 		}
+		
+		result.put("mode", comment_cd == 0 ? 0 : 1);
 		
 		return result;
 	}
