@@ -3,7 +3,7 @@ addJavascript("/js/util/uriBuilder.js");
 
 function ptrPaginationToHtml( pagination, lcoation) {
   let pagingUri = new UriBuilder(lcoation);
-  console.log(pagingUri);
+  //console.log(pagingUri);
   let ptrHtml = "";
 
   ptrHtml += '<div id="paginationBox">';
@@ -19,7 +19,7 @@ function ptrPaginationToHtml( pagination, lcoation) {
       ptrHtml += '<li class="page-item active"><span class="page-link">' + i + '</span></li>';
     } else {
       pagingUri.addParams({ 'page' : i, 'range' : pagination.range });
-      console.log(pagingUri.params);
+      //console.log(pagingUri.params);
       ptrHtml += '<li class="page-item">';
       ptrHtml +=  '<a class="page-link" onclick="pagingOnClick(\'' + pagingUri.build() + '\', ' + i + ', '  + pagination.range + ', \'' + pagingUri.location + '\')">' + i + '</a></li>';
       //ptrHtml +=  '<a class="page-link" href="' + pagingUri.build() + '">' + i + '</a></li>';

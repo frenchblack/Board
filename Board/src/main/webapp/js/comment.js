@@ -77,7 +77,7 @@ function commetSuccess( result, blinkComm ) {
     blicnkObj.comment_class = blinkComm.comment_class;
   }
 
-  console.log(result);
+  //console.log(result);
   let commentList = result.commentList;
 
   if ( result.length < 1 ) {
@@ -116,7 +116,7 @@ function commetSuccess( result, blinkComm ) {
 
   $('#replyList').html(ptrHtml);
   let focusTag = '#content' + "_" + blicnkObj.comment_cd + "_" + blicnkObj.comment_class;
-  console.log($( focusTag ).attr("id") + "/" + focusTag );
+  //console.log($( focusTag ).attr("id") + "/" + focusTag );
   if ( !isEmpty( $( focusTag ).attr("id") ) ) {
     $( focusTag ).get(0).scrollIntoView({block:"center"});
   }
@@ -135,7 +135,7 @@ function getCommentList( blinkComm, page, range) {
                , "page" : page || 1 
                , "range" :  range || 1 
              };
-  console.log(params);
+  //console.log(params);
 
   $.ajax({
       type: 'POST'

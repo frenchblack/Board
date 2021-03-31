@@ -101,7 +101,8 @@ public class Pagination {
 		this.prev = range == 1 ? false : true;
 		
 		//다음 버튼 상태
-		this.next = endPage > pageCnt ? false : true;
+		this.next = endPage >= pageCnt ? false : true;
+		
 		if ( this.endPage > this.pageCnt ) {
 			this.endPage = this.pageCnt;
 			this.next = false;
@@ -130,10 +131,11 @@ public class Pagination {
 		this.startList = (this.page - 1) * listSize;
 		
 		//이전 버튼 상태
-		this.prev = this.page == 1 ? false : true;
+		this.prev = this.range == 1 ? false : true;
 		
 		//다음 버튼 상태
-		this.next = endPage > pageCnt ? false : true;
+		this.next = endPage >= pageCnt ? false : true;
+		
 		if ( this.endPage > this.pageCnt ) {
 			this.endPage = this.pageCnt;
 			this.next = false;
