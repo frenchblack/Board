@@ -21,7 +21,16 @@ public class UserController {
 	@Inject
 	private UserService userService;
 	
-	@RequestMapping(value = "/Login", method = RequestMethod.POST)
+	@RequestMapping(value = "/getJoinForm", method = RequestMethod.GET)
+	public String getJoinForm(Model model) throws Exception {
+		logger.info("getJoinForm");
+		
+		model.addAttribute("userVO", new UserVO());
+		
+		return "/user/join";
+	}
+	
+	@RequestMapping(value = "/login", method = RequestMethod.POST)
 	public String login(Model model, @ModelAttribute("userVO") UserVO userVO) throws Exception {
 		logger.info("login");
 		

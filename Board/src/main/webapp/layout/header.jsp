@@ -14,5 +14,15 @@
 	      </a>
 	    </li>
 	  </ul>
+	  <ul class="navbar-nav navbar-right">
+	    <li class="nav-item active">
+	      <a class="nav-link" href="/User/getJoinForm.do">회원가입
+	      </a>
+	    </li>
+	    <li class="nav-item active">
+	      <a class="nav-link" href="#">로그인
+	      </a>
+	    </li>
+	  </ul>
 	</div>
 </nav>
