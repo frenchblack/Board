@@ -40,29 +40,21 @@
         </div>
         <!--joinForm-->
         <div class="container col-6">
-          <form:form name="form" id="form" role="form" modelAttribute="userVO" method="post" action="/User/join.do">
+          <form:form name="form" id="form" role="form" modelAttribute="userVO" method="post" action="/User/login.do">
             <div class="mb-3 form-group">
               <label class="mr-2" for="user_id">ID</label>
               <div class="form-inline">
-                <form:input path="user_id" type="text" class="form-control col-12 mr-2" name="user_id" id="user_id" data-valid="[true, 'ID']" placeholder="ID를 입력해 주세요"/>
+                <form:input path="user_id" type="text" class="form-control col-12 mr-2" name="user_id" id="user_id" placeholder="ID를 입력해 주세요"/>
                 <!-- <button type="button" class="btn btn-sm btn-primary" id="chkDouble">중복확인</button> -->
               </div>
             </div>  
             <div class="mb-3 form-group">
               <label class="mr-2" for="user_pw">비밀번호</label>
-              <form:input path="user_pw" type="password" class="form-control col-12 mr-2" name="user_pw" id="user_pw" data-valid="[true, '비밀번호', 'password']" placeholder="비밀번호를 입력해 주세요"/>
+              <form:input path="user_pw" type="password" class="form-control col-12 mr-2" name="user_pw" id="user_pw" placeholder="비밀번호를 입력해 주세요"/>
             </div>  
-            <div class="mb-3 form-group">
-              <label class="mr-2" for="user_pw_r">비밀번호 재확인</label>
-              <input type="password" class="form-control col-12 mr-2" name="user_pw_r" id="user_pw_r" data-valid="[true, '재확인 비밀번호', 'password']" placeholder="비밀번호를 입력해 주세요"/>
-            </div>
-            <div class="mb-3 form-group">
-              <label class="mr-2" for="user_nm">성명</label>
-              <form:input path="user_nm" type="text" class="form-control col-12 mr-2" name="user_nm" id="user_nm" data-valid="[true, '성명']" placeholder="성명을 입력해 주세요"/>
-            </div> 
           </form:form>
           <div>
-            <button type="button" class="btn btn-sm btn-primary col-12" id="btnJoin">가입</button>
+            <button type="button" class="btn btn-sm btn-primary col-12" id="btnLogin">로그인</button>
           </div>
         </div>
       </div>
@@ -74,17 +66,12 @@
     <script type="text/javascript">
       //-------------------------------------------------------
       // 사용자 정의 이벤트
-      $( "#btnJoin" ).click( function(){
+      $( "#btnLogin" ).click( function(){
         let url = "/RestUser/join.do";
         let obj = $("#form").serializeObject();
         let params = JSON.stringify(obj);
 
-        if ( !$("#form").chkValid() ) return;
-
-        if ( $("#user_pw").val() != $("#user_pw_r").val() ) {
-          alert("비밀번호와 재입력 비밀번호가 일치하지 않습니다.");
-          return;
-        }
+        if ( !chkJoin(obj) ) return;
 
         $.ajax({
             type: 'POST'

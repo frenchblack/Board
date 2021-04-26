@@ -30,6 +30,24 @@ public class UserController {
 		return "/user/join";
 	}
 	
+	@RequestMapping(value = "/join", method = RequestMethod.POST)
+	public String join(Model model, @ModelAttribute("userVO") UserVO userVO) throws Exception {
+		logger.info("login");
+		
+		//model.addAttribute("uriParser", uriParser);
+		
+		return "/free/free";
+	}
+	
+	@RequestMapping(value = "/getLoginForm", method = RequestMethod.GET)
+	public String getLoginForm(Model model) throws Exception {
+		logger.info("getLoginForm");
+		
+		model.addAttribute("userVO", new UserVO());
+		
+		return "/user/login";
+	}
+	
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
 	public String login(Model model, @ModelAttribute("userVO") UserVO userVO) throws Exception {
 		logger.info("login");

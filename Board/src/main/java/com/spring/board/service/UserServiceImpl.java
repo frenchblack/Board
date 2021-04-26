@@ -18,4 +18,9 @@ public class UserServiceImpl implements UserService{
 		return userDAO.login(userVO);
 	}
 
+	@Override
+	public int join(UserVO userVO) throws Exception {
+		return userDAO.join(userVO);
+	}
+
 }

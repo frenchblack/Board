@@ -13,6 +13,10 @@
 	<listener>
 		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
 	</listener>
+	<!-- Spring Security -->
+	<listener>
+		<listener-class>org.springframework.security.web.session.HttpSessionEventPublisher</listener-class>
+	</listener>
 
 	<!-- welcome 파일 설정 -->
 	<welcome-file-list> 
@@ -46,6 +50,18 @@
 		<url-pattern>*.do</url-pattern>
 	</servlet-mapping>
 
+	<!-- filter -->
+	<!-- Spring Security -->
+	<filter>
+		<filter-name>springSecurityFilterChain</filter-name>
+		<filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
+	</filter>
+	
+	<filter-mapping>
+		<filter-name>springSecurityFilterChain</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+
 	<!-- UTF-8 캐릭터셋 안코당-->
 	<filter> 
 	    <filter-name>encodingFilter</filter-name> 
@@ -63,5 +79,4 @@
 	    <filter-name>encodingFilter</filter-name> 
 	    <url-pattern>/*</url-pattern> 
 	 </filter-mapping> 
-
 </web-app>

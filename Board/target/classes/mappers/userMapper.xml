@@ -6,4 +6,18 @@
 	<select id="login" parameterType="com.spring.board.model.UserVO" resultType="hashmap">
 		
 	</select>
+	
+	<!-- 회원가입 -->
+	<insert id="join" parameterType="com.spring.board.model.UserVO">
+		INSERT
+		  INTO USERS (
+		       USER_ID
+		     , USER_PW
+		     , USER_NM
+		     ) VALUES (
+		       #{user_id}
+		     , #{user_pw}
+			 , #{user_nm}
+		     )
+	</insert>
 </mapper>

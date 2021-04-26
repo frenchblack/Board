@@ -73,6 +73,7 @@
     </div>
 
     <script type="text/javascript" src="/js/common.js"></script>
+    <script type="text/javascript" src="/js/util/util.js"></script>
     <script type="text/javascript" src="/js/comment.js?board_cd=${boardContent.board_cd}"></script>
     <script type="text/javascript">
       //-------------------------------------------

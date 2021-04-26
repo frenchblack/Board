@@ -22,4 +22,9 @@ public class UserDAOImpl implements UserDAO{
 		return sqlSession.selectOne("userMapper.login", userVO);
 	}
 
+	@Override
+	public int join(UserVO userVO) throws Exception {
+		return sqlSession.insert("userMapper.join", userVO);
+	}
+
 }

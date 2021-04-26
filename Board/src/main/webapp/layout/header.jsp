@@ -20,7 +20,7 @@
 	      </a>
 	    </li>
 	    <li class="nav-item active">
-	      <a class="nav-link" href="#">로그인
+	      <a class="nav-link" href="/User/getLoginForm.do">로그인
 	      </a>
 	    </li>
 	  </ul>

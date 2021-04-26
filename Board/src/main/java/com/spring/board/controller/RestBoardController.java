@@ -24,7 +24,7 @@ import com.spring.board.service.BoardService;
 @RestController
 @RequestMapping(value = "/RestBoard")
 public class RestBoardController {
-	private static final Logger logger = LoggerFactory.getLogger(BoardController.class);
+	private static final Logger logger = LoggerFactory.getLogger(RestBoardController.class);
 	
 	@Inject
 	private BoardService boardService;

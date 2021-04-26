@@ -30,5 +30,9 @@
     <br>
     <a class="badge badge-light" href="https://cloudstudying.kr/">스프링부트</a>
     <br>
+    <a class="badge badge-light" href="https://namjackson.tistory.com/25">https 참고</a>
+    <br>
+    <a class="badge badge-light" href="https://to-dy.tistory.com/92?category=720806">스프링 시큐리티 참고</a>
+    <br>
     tail
 </div>
