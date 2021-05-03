@@ -1,3 +1,11 @@
+body {
+  padding-top: 75px;
+}
+
+/*.modal {
+	z-index: 1500;
+}
+*/
 .navbar-top {
 	margin-bottom: 20px;
 }
