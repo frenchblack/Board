@@ -1,10 +1,49 @@
 package com.spring.board.model;
 
-public class UserVO {
+import java.util.ArrayList;
+import java.util.Collection;
+
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+
+@SuppressWarnings("serial")
+public class UserVO implements UserDetails {
 	public String user_id;
 	public String user_pw;
 	public String user_nm;
 	public String join_dt;
+	
+	@Override
+	public Collection<? extends GrantedAuthority> getAuthorities() {
+        ArrayList<GrantedAuthority> auth = new ArrayList<GrantedAuthority>();
+        auth.add(new SimpleGrantedAuthority("ROLE_USER"));
+		return null;
+	}
+	@Override
+	public String getPassword() {
+		return getUser_pw();
+	}
+	@Override
+	public String getUsername() {
+		return getUser_id();
+	}
+	@Override
+	public boolean isAccountNonExpired() {
+		return true;
+	}
+	@Override
+	public boolean isAccountNonLocked() {
+		return true;
+	}
+	@Override
+	public boolean isCredentialsNonExpired() {
+		return true;
+	}
+	@Override
+	public boolean isEnabled() {
+		return true;
+	}
 	
 	public String getUser_id() {
 		return user_id;

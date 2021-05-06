@@ -18,6 +18,7 @@ function scriptQuery() {
      return queries;
 } 
 
+//validation 체크
 $.fn.extend({
   valid : function(obj, validData) {
     let $obj = $(obj);
@@ -59,6 +60,49 @@ $.fn.extend({
 
     return true;
   }
+});
+
+//serializeObject
+$.fn.serializeObject = function() {
+   let o = {};
+   let a = this.serializeArray();
+   $.each(a, function() {
+       if (o[this.name]) {
+           if (!o[this.name].push) {
+               o[this.name] = [o[this.name]];
+           }
+           o[this.name].push(this.value || '');
+       } else {
+           o[this.name] = this.value || '';
+       }
+   });
+   return o;
+};
+
+//login
+$( "#loginBtn" ).click( function(){
+  let url = "/User/login.do";
+  let obj = $("#loginForm").serializeObject();
+  let params = JSON.stringify(obj);
+
+  console.log(params);
+  if ( !$("#loginForm").chkValid() ) return;
+
+  $("#loginForm").submit();  
+
+  // $.ajax({
+  //     type: 'POST'
+  //   , url: url
+  //   , data: params
+  //   , dataType: 'json'
+  //   , contentType : "application/json; charset=utf-8"
+  //   , success: function (result) {
+  //     console.log(result)
+  //   }
+  //   , error : function (xhr, status, error) {
+  //     alert("로그인에 실패하였습니다.");
+  //   }
+  // });
 });
 
 //console.log("Load common.js");

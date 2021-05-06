@@ -38,22 +38,22 @@
 	        </button>
 	      </div>
 	      <div class="modal-body">
-	          <form name="loginForm" id="loginForm">
+	          <form name="loginForm" id="loginForm" action="/User/login.do" method="POST">
 	            <div class="mb-3 form-group">
 	              <label class="mr-2" for="user_id">ID</label>
 	              <div class="form-inline">
-	                <input  type="text" class="form-control col-12 mr-2" name="user_id" id="user_id" placeholder="ID를 입력해 주세요"/>
+	                <input  type="text" class="form-control col-12 mr-2" name="user_id" id="user_id" data-valid="[true, 'ID']" placeholder="ID를 입력해 주세요"/>
 	                <!-- <button type="button" class="btn btn-sm btn-primary" id="chkDouble">중복확인</button> -->
 	              </div>
 	            </div>  
 	            <div class="mb-3 form-group">
 	              <label class="mr-2" for="user_pw">비밀번호</label>
-	              <input type="password" class="form-control col-12 mr-2" name="user_pw" id="user_pw" placeholder="비밀번호를 입력해 주세요"/>
+	              <input type="password" class="form-control col-12 mr-2" name="user_pw" id="user_pw" data-valid="[true, '비밀번호', 'password']" placeholder="비밀번호를 입력해 주세요"/>
 	            </div>  
 	          </form>
 	      </div>
 	      <div class="modal-footer">
-	      	<button type="button" class="btn btn-primary">로그인</button>
+	      	<button type="button" class="btn btn-primary" id="loginBtn">로그인</button>
 	        <button type="button" class="btn btn-secondary" data-dismiss="modal">닫기</button>
 	      </div>
 	    </div>

@@ -27,4 +27,9 @@ public class UserDAOImpl implements UserDAO{
 		return sqlSession.insert("userMapper.join", userVO);
 	}
 
+	@Override
+	public UserVO getUserByID(String user_id) throws Exception {
+		return sqlSession.selectOne("userMapper.getUserByID", user_id);
+	}
+
 }

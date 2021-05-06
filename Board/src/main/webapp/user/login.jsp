@@ -44,13 +44,13 @@
             <div class="mb-3 form-group">
               <label class="mr-2" for="user_id">ID</label>
               <div class="form-inline">
-                <form:input path="user_id" type="text" class="form-control col-12 mr-2" name="user_id" id="user_id" placeholder="ID를 입력해 주세요"/>
+                <form:input path="user_id" type="text" class="form-control col-12 mr-2" name="user_id" id="user_id" data-valid="[true, 'ID']" placeholder="ID를 입력해 주세요"/>
                 <!-- <button type="button" class="btn btn-sm btn-primary" id="chkDouble">중복확인</button> -->
               </div>
             </div>  
             <div class="mb-3 form-group">
               <label class="mr-2" for="user_pw">비밀번호</label>
-              <form:input path="user_pw" type="password" class="form-control col-12 mr-2" name="user_pw" id="user_pw" placeholder="비밀번호를 입력해 주세요"/>
+              <form:input path="user_pw" type="password" class="form-control col-12 mr-2" name="user_pw" id="user_pw" data-valid="[true, '비밀번호', 'password']" placeholder="비밀번호를 입력해 주세요"/>
             </div>  
           </form:form>
           <div>
@@ -72,6 +72,8 @@
         let params = JSON.stringify(obj);
 
         if ( !chkJoin(obj) ) return;
+
+        
 
         $.ajax({
             type: 'POST'
