@@ -34,7 +34,7 @@ public class UserAuthProvider implements AuthenticationProvider {
 		
 		
 		if ( !password.equals(user.getPassword()) ) {
-			throw new BadCredentialsException(username);
+			throw new BadCredentialsException("비밀번호가 일치하지 않습니다.");
 		}
 		
 		logger.info("!user.isEnabled()");

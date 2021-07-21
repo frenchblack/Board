@@ -2,7 +2,6 @@ package aop.advice;
 
 import java.lang.reflect.Method;
 
-import org.aopalliance.intercept.MethodInvocation;
 import org.springframework.aop.MethodBeforeAdvice;
 
 public class LogBeforeAdvice implements MethodBeforeAdvice{

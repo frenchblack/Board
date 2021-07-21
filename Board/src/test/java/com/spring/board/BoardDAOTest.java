@@ -1,7 +1,5 @@
 package com.spring.board;
 
-import java.util.List;
-
 import javax.inject.Inject;
 
 import org.junit.Ignore;

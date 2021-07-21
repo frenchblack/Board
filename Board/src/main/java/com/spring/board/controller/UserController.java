@@ -39,7 +39,7 @@ public class UserController {
 		return "/free/free";
 	}
 	
-	@RequestMapping(value = "/getLoginForm", method = RequestMethod.GET)
+	@RequestMapping(value = "/getLoginForm", method = {RequestMethod.GET, RequestMethod.POST})
 	public String getLoginForm(Model model) throws Exception {
 		logger.info("getLoginForm");
 		

@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="form" uri = "http://www.springframework.org/tags/form" %> 
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 
 <!-- 상단 navbar -->
 <nav class="navbar fixed-top navbar-expand-sm navbar-dark bg-dark navbar-top">
@@ -18,17 +19,31 @@
 	  </ul>
 	  <ul class="navbar-nav navbar-right">
 	    <li class="nav-item active">
-	      <a class="nav-link" href="/User/getJoinForm.do">회원가입
-	      </a>
+	      <a class="nav-link" href="/User/getJoinForm.do">회원가입</a>
 	    </li>
-	    <li class="nav-item active">
-	      <a class="nav-link" href="/User/getLoginForm.do" data-toggle="modal" data-target="#loginModal">로그인
-	      </a>
-	    </li>
+	    <sec:authorize access="isAnonymous()">
+		    <li class="nav-item active">
+		      <a class="nav-link" href="/User/getLoginForm.do">로그인
+		      </a>
+		    </li>
+		</sec:authorize>
+	    <sec:authorize access="isAuthenticated()">
+		    <li class="nav-item active">
+<!-- 			    <form action="/User/logout.do" method="POST">
+			        <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+			        <button type="submit">LOGOUT</button>
+		    	</form> -->
+		      <a class="nav-link" onclick="document.getElementById('logout_form').submit();">로그아웃</a>
+		      <form id="logout_form" action="/User/logout.do" method="POST">
+		      	<sec:csrfInput/>
+		      	<!-- <input type="hidden" name="name"> -->
+		      </form> 
+		    </li> 
+		</sec:authorize>
 	  </ul>
 	</div>
 	<!-- Login Modal -->
-	<div class="modal fade" id="loginModal" tabindex="-1" data-backdrop="false" aria-labelledby="loginModalLabel" aria-hidden="true">
+<!-- 	<div class="modal fade" id="loginModal" tabindex="-1" data-backdrop="false" aria-labelledby="loginModalLabel" aria-hidden="true">
 	  <div class="modal-dialog">
 	    <div class="modal-content">
 	      <div class="modal-header">
@@ -39,11 +54,11 @@
 	      </div>
 	      <div class="modal-body">
 	          <form name="loginForm" id="loginForm" action="/User/login.do" method="POST">
+	          	<sec:csrfInput/>
 	            <div class="mb-3 form-group">
 	              <label class="mr-2" for="user_id">ID</label>
 	              <div class="form-inline">
 	                <input  type="text" class="form-control col-12 mr-2" name="user_id" id="user_id" data-valid="[true, 'ID']" placeholder="ID를 입력해 주세요"/>
-	                <!-- <button type="button" class="btn btn-sm btn-primary" id="chkDouble">중복확인</button> -->
 	              </div>
 	            </div>  
 	            <div class="mb-3 form-group">
@@ -58,5 +73,5 @@
 	      </div>
 	    </div>
 	  </div>
-	</div>
+	</div> -->
 </nav>

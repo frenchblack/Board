@@ -24,12 +24,14 @@ public class UserAuthService implements UserDetailsService {
 		UserVO user = null;
 		try {
 			user = userDAO.getUserByID(username);
-	        if ( user==null ) {
-	            throw new UsernameNotFoundException(username);
-	        }
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		
+        if ( user==null ) {
+            throw new UsernameNotFoundException(username);
+        }
+        
 		return user;
 	}
 

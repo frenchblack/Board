@@ -1,8 +1,5 @@
 package aop.advice;
 
-import java.lang.reflect.Method;
-
-import org.springframework.aop.AfterReturningAdvice;
 import org.springframework.aop.ThrowsAdvice;
 
 public class LogAfterThrowingAdvice implements ThrowsAdvice{

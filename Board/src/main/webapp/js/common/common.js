@@ -47,18 +47,22 @@ $.fn.extend({
 
   , chkValid : function() {
     let $this = $(this);
+    let _validVal = true;
 
     console.log($this);
     $this.find("input").each( function(idx, el) {
       var validData = $(el).data("valid");
-      //console.log(validData + "/" + typeof validData);
+      console.log(validData + "/" + typeof validData); 
 
-      if ( validData != "" ) {
-        if ( !$this.valid(el, new Function("return " + validData)()) ) return false;
+      if ( typeof validData != "undefined" && validData != "" && validData != null) {
+        if ( !$this.valid(el, new Function("return " + validData)()) ) {
+          _validVal = false;
+          return false;
+        }
       }
     });
 
-    return true;
+    return _validVal;
   }
 });
 
@@ -81,14 +85,26 @@ $.fn.serializeObject = function() {
 
 //login
 $( "#loginBtn" ).click( function(){
-  let url = "/User/login.do";
-  let obj = $("#loginForm").serializeObject();
-  let params = JSON.stringify(obj);
+  // var csrfParameter = $('meta[name="_csrf_parameter"]').attr('content');
+  // var csrfHeader = $('meta[name="_csrf_header"]').attr('content');
+  // var csrfToken = $('meta[name="_csrf"]').attr('content');
 
-  console.log(params);
-  if ( !$("#loginForm").chkValid() ) return;
+  // let url = "/User/login.do";
+  // let obj = $("#loginForm").serializeObject();
+  // console.log(obj);
+  // let params = JSON.stringify(obj);
+  // // let params = "user_id=AAA"//JSON.stringify(obj);
 
-  $("#loginForm").submit();  
+  // console.log(params);
+  // if ( !$("#loginForm").chkValid() ) return;
+
+  // $("#loginForm").submit();  
+
+  // $.ajaxSetup({
+  //     beforeSend: function(xhr) {
+  //         xhr.setRequestHeader(csrfHeader, csrfToken);
+  //     }  
+  // })  
 
   // $.ajax({
   //     type: 'POST'

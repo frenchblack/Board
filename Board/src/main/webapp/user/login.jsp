@@ -45,13 +45,17 @@
               <label class="mr-2" for="user_id">ID</label>
               <div class="form-inline">
                 <form:input path="user_id" type="text" class="form-control col-12 mr-2" name="user_id" id="user_id" data-valid="[true, 'ID']" placeholder="ID를 입력해 주세요"/>
-                <!-- <button type="button" class="btn btn-sm btn-primary" id="chkDouble">중복확인</button> -->
               </div>
             </div>  
             <div class="mb-3 form-group">
               <label class="mr-2" for="user_pw">비밀번호</label>
               <form:input path="user_pw" type="password" class="form-control col-12 mr-2" name="user_pw" id="user_pw" data-valid="[true, '비밀번호', 'password']" placeholder="비밀번호를 입력해 주세요"/>
             </div>  
+            <c:if test="${not empty ERRORMSG}">
+              <font color="red">
+                ${ERRORMSG}</p>
+              </font>
+            </c:if>
           </form:form>
           <div>
             <button type="button" class="btn btn-sm btn-primary col-12" id="btnLogin">로그인</button>
@@ -67,33 +71,9 @@
       //-------------------------------------------------------
       // 사용자 정의 이벤트
       $( "#btnLogin" ).click( function(){
-        let url = "/RestUser/join.do";
-        let obj = $("#form").serializeObject();
-        let params = JSON.stringify(obj);
-
-        if ( !chkJoin(obj) ) return;
-
+        if ( !$("#form").chkValid() ) return;
         
-
-        $.ajax({
-            type: 'POST'
-          , url: url
-          , data: params
-          , dataType: 'json'
-          , contentType : "application/json; charset=utf-8"
-          , success: function (result) {
-              switch(result) {
-                case 1 : alert("회원가입이 완료되었습니다.");
-                  history.back();
-                  break;
-               default : alert("회원가입에 실패하였습니다.");
-                  break;
-              }
-          }
-          , error : function (xhr, status, error) {
-            alert("회원가입에 실패하였습니다.");
-          }
-        });
+        $("#form").submit();
       });
     </script>
   </body>

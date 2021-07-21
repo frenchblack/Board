@@ -6,14 +6,20 @@
 		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 
 	<security:http auto-config="true" use-expressions="true">
-		<security:csrf disabled="true"/>
+		<security:csrf disabled="false"/>
 		<security:intercept-url pattern="/**" access="permitAll" />
-		<security:form-login login-page="/User/getLoginForm.do" authentication-success-handler-ref="loginSuccessHandler" 
-			authentication-failure-handler-ref="loginFailureHandler" login-processing-url="/User/login.do" 
-			username-parameter="user_id" password-parameter="user_pw" />
-		<security:logout logout-url="/User/logout.do" invalidate-session="true" logout-success-url="/" />
+		<security:form-login login-page="/User/getLoginForm.do" 
+			authentication-success-handler-ref="loginSuccessHandler" 
+			authentication-failure-handler-ref="loginFailureHandler" 
+			login-processing-url="/User/login.do" 
+			username-parameter="user_id" 
+			password-parameter="user_pw" />
+		<security:logout logout-url="/User/logout.do" 
+			invalidate-session="true" 
+			logout-success-url="/" />
 		<security:session-management invalid-session-url="/">
-		<security:concurrency-control max-sessions="1" error-if-maximum-exceeded="false" />
+		<security:concurrency-control max-sessions="1" 
+			error-if-maximum-exceeded="false" />
 		</security:session-management>
 	</security:http>
 	
@@ -22,14 +28,16 @@
 	
 	<!-- provider -->
 	<security:authentication-manager>
-		<security:authentication-provider ref="userAuthProvider" />
-	</security:authentication-manager>
+		<security:authentication-provider ref="userAuthProvider"/>
+		<security:authentication-provider user-service-ref="userAuthService">
+		</security:authentication-provider>
+	</security:authentication-manager> 
 
-	<bean id="loginSuccessHandler" class="com.spring.board.security.loginSuccessHandler">
+	<bean id="loginSuccessHandler" class="com.spring.board.security.LoginSuccessHandler">
 		<property name="defaultTargetUrl" value="/" />
 	</bean>
 	<bean id="loginFailureHandler" class="com.spring.board.security.LoginFailureHandler">
-		<property name="defaultFailureUrl" value="/login?status=fail" />
+		<property name="defaultFailureUrl" value="/User/getLoginForm.do" />
 	</bean>
 	<bean id="userAuthService" class="com.spring.board.security.UserAuthService" />
 	<bean id="passwordEncoder" class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder" />
