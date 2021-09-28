@@ -17,7 +17,7 @@
       <button type="button" class="btn btn-sm btn-primary" id="btnCommentSave">저장</button>
     </div>
   </form:form>
-</div>
+</div> 
 <div class="my-3 bg-white rounded shadow-sm" style="padding-top: 10px">
   <h6 class="border-bottom pb-2 mb-0">댓글</h6>
   <div id="replyList"></div>
