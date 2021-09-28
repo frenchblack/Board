@@ -1,4 +1,15 @@
 /* 공통JS 파일*/
+//csrf 토큰 설정
+var c_token = $("meta[name='_csrf']").attr("content");
+var c_header = $("meta[name='_csrf_header']").attr("content");
+
+$(function() {
+    $(document).ajaxSend(function(e, xhr, options) {
+        if(c_token && c_header) {
+            xhr.setRequestHeader(c_header, c_token);
+        }
+    });
+});
 //js에서 get 파라미터 사용
 function scriptQuery() {
     var script = document.getElementsByTagName('script');   

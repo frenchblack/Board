@@ -1,4 +1,6 @@
 //console.log('Begin load comment.js');
+
+//Comment
 var boardCd = scriptQuery();
 addJavascript("/js/util/pagination.js");
 
