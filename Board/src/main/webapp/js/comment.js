@@ -101,12 +101,15 @@ function commetSuccess( result, blinkComm ) {
       ptrHtml +=    '<div class="col-sm-6" style="text-align: right;font: 0.8rem grey;">' + this.in_date + '</div>';
       ptrHtml +=  '</div>';
       ptrHtml +=  '<div class="row justify-content-end">';
-      ptrHtml +=    '<div class="col-sm-3">';
-      ptrHtml +=      '<div class="float-right" id="commBtn' + idCd + '">';
-      ptrHtml +=        '<button type="button" class="btn btn-sm btn-secondary" onclick="fn_updateComment(\'' + idCd + '\',\'' + this.comment_content + '\')">수정</button>';
-      ptrHtml +=        '<button type="button" class="btn btn-sm btn-secondary ml-1" onclick="confirm(commMessage.del) ? delComment(\'commForm' + idCd + '\') : false;">삭제</button>';
-      ptrHtml +=      '</div>';
-      ptrHtml +=    '</div>';
+      //사용자 아이디와 작성자 아이다가 같으면 수정, 삭제버튼 표시
+      if ( $("#comm_writer").val() == this.user_id ) {
+        ptrHtml +=    '<div class="col-sm-3">';
+        ptrHtml +=      '<div class="float-right" id="commBtn' + idCd + '">';
+        ptrHtml +=        '<button type="button" class="btn btn-sm btn-secondary" onclick="fn_updateComment(\'' + idCd + '\',\'' + this.comment_content + '\')">수정</button>';
+        ptrHtml +=        '<button type="button" class="btn btn-sm btn-secondary ml-1" onclick="confirm(commMessage.del) ? delComment(\'commForm' + idCd + '\') : false;">삭제</button>';
+        ptrHtml +=      '</div>';
+        ptrHtml +=    '</div>';
+      }
       ptrHtml +=  '</div>';
       ptrHtml += '</div>';
     })

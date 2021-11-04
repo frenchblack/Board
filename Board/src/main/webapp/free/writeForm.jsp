@@ -29,10 +29,7 @@
               <label for="title">제목</label>
               <form:input path="title" type="text" class="form-control" name="title" id="title" placeholder="제목을 입력해 주세요"/>
             </div>  
-            <div class="mb-3">
-              <label for="user_id">작성자</label>
-              <form:input path="user_id" type="text" class="form-control" name="user_id" id="user_id" placeholder="이름을 입력해 주세요"/>
-            </div>           
+            <form:hidden id="user_id" path="user_id" value="${ath_user_id}"/>
             <div class="mb-3">
               <label for="content">내용</label>
               <form:textarea path="content" class="form-control" rows="5" name="content" id="content" placeholder="내용을 입력해 주세요"/> 
@@ -50,6 +47,8 @@
 
     <script type="text/javascript" src="/js/common.js"></script>
     <script type="text/javascript">
+      console.log($("#user_id").val());
+
       $( '#btnSave' ).click( function(e) {
         e.preventDefault();
         $("#form").submit();
@@ -67,7 +66,6 @@
           $( "#user_id" ).prop('readonly', true);
           $( "input:hidden[name='board_cd']" ).val('<c:out value="${boardContent.board_cd}"/>');
           $( "input:hidden[name='mode']" ).val('<c:out value="${mode}"/>');
-          $( "#user_id" ).val('<c:out value="${boardContent.user_id}"/>');
           $( "#title" ).val('<c:out value="${boardContent.title}"/>');
           $( "#content" ).val('<c:out value="${boardContent.content}"/>');
         }

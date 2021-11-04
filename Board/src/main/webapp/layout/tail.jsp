@@ -34,5 +34,7 @@
     <br>
     <a class="badge badge-light" href="https://to-dy.tistory.com/92?category=720806">스프링 시큐리티 참고</a>
     <br>
+    <a class="badge badge-light" href="https://codevang.tistory.com/273">스프링 시큐리티 참고2</a>
+    <br>
     tail
 </div>

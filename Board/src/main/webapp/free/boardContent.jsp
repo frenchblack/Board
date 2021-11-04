@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="form" uri = "http://www.springframework.org/tags/form" %> 
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+
 <!DOCTYPE html>
 <html lang="ko">
   <head>
@@ -64,8 +66,10 @@
           <c:out value="${boardContent.content}"/>
         </div>
         <div>
-          <button type="button" class="btn btn-sm btn-primary" id="btnUpdate">수정</button>
-          <button type="button" class="btn btn-sm btn-primary" id="btnDel">삭제</button>
+          <c:if test="${ath_user_id == boardContent.user_id}">
+            <button type="button" class="btn btn-sm btn-primary" id="btnUpdate">수정</button>
+            <button type="button" class="btn btn-sm btn-primary" id="btnDel">삭제</button>
+          </c:if>
           <button type="button" class="btn btn-sm btn-primary" id="btnList">목록</button>
         </div>
         <!-- 댓글 -->

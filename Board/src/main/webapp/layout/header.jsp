@@ -18,6 +18,11 @@
 	    </li>
 	  </ul>
 	  <ul class="navbar-nav navbar-right">
+	  	<sec:authorize access="isAuthenticated()">
+	  		<sec:authentication property="principal.user_id" var="ath_user_id"/>
+	  		<sec:authentication property="principal.user_nm" var="ath_user_nm"/>
+	  		<a class="nav-link">어서오세요 ${ath_user_nm}</a>
+	  	</sec:authorize>
 	    <li class="nav-item active">
 	      <a class="nav-link" href="/User/getJoinForm.do">회원가입</a>
 	    </li>

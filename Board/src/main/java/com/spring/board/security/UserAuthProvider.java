@@ -42,7 +42,8 @@ public class UserAuthProvider implements AuthenticationProvider {
             throw new BadCredentialsException(username);
         }
 
-		return new UsernamePasswordAuthenticationToken(username, password, user.getAuthorities());
+        //userToken설정 첫번쨰 인자가 principal객체가 됨
+		return new UsernamePasswordAuthenticationToken(user, password, user.getAuthorities());
 	}
 	
 	@Override

@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 
 <!DOCTYPE html>
 <html lang="ko">
@@ -90,7 +91,9 @@
             </ul>
           </div>
           <div class="justify-content-center">
-            <button type="button" class="btn btn-sm btn-primary" id="btnWriteForm">글쓰기</button>
+            <sec:authorize access="isAuthenticated()">
+              <button type="button" class="btn btn-sm btn-primary" id="btnWriteForm">글쓰기</button>
+            </sec:authorize>
             <div class="form-group search-group justify-content-center">
               <select class="form-control col-1" name="searchType" id="searchType">
                 <option value="all">전체</option>
