@@ -40,7 +40,7 @@
               <tr class="table-tr">
                 <th scope="col">글번호</th>
                 <th scope="col">제목</th>
-                <th scope="col">내용</th>
+                <!-- <th scope="col">내용</th> -->
                 <th scope="col">직성자</th>
                 <th scope="col">작성일</th>
               </tr>
@@ -59,7 +59,7 @@
                           <c:out value="${list.title}"/>
                         </a>
                       </td>
-                      <td><c:out value="${list.content}"/></td>
+                      <!-- <td><c:out value="${list.content}"/></td> -->
                       <td><c:out value="${list.user_id}"/></td>
                       <td><c:out value="${list.in_date}"/></td>
                     </tr>

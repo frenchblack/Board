@@ -63,7 +63,7 @@
           </div>
         </div>
         <div class="content">
-          <c:out value="${boardContent.content}"/>
+          <c:out escapeXml="false" value="${boardContent.content}"/>
         </div>
         <div>
           <c:if test="${ath_user_id == boardContent.user_id}">

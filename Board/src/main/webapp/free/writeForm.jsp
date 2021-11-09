@@ -9,6 +9,13 @@
     <title>title</title>
     <link rel="stylesheet" href="/css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="/css/common/common.css">
+    <style type="text/css">
+      .ck-editor__editable {
+          min-height: 300px;
+          max-height: 500px;
+      }
+    </style>
+    <script src="https://cdn.ckeditor.com/ckeditor5/31.0.0/classic/ckeditor.js"></script>
   </head>
   <body>
     <div id="wrapper">
@@ -33,6 +40,9 @@
             <div class="mb-3">
               <label for="content">내용</label>
               <form:textarea path="content" class="form-control" rows="5" name="content" id="content" placeholder="내용을 입력해 주세요"/> 
+              <script>
+
+              </script>
             </div>      
           </form:form>
           <div >
@@ -67,8 +77,14 @@
           $( "input:hidden[name='board_cd']" ).val('<c:out value="${boardContent.board_cd}"/>');
           $( "input:hidden[name='mode']" ).val('<c:out value="${mode}"/>');
           $( "#title" ).val('<c:out value="${boardContent.title}"/>');
-          $( "#content" ).val('<c:out value="${boardContent.content}"/>');
+          $( "#content" ).val('<c:out escapeXml="false" value="${boardContent.content}"/>');
         }
+
+        ClassicEditor
+            .create( document.querySelector( '#content' ) )
+            .catch( error => {
+                console.error( error );
+            } );
       });
     </script>
   </body>

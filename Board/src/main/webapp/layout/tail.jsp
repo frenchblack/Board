@@ -36,5 +36,7 @@
     <br>
     <a class="badge badge-light" href="https://codevang.tistory.com/273">스프링 시큐리티 참고2</a>
     <br>
+    <a class="badge badge-light" href="https://ckeditor.com/docs/ckeditor5/latest/builds/guides/integration/configuration.html">ck에디터 doc</a>
+    <br>
     tail
 </div>
