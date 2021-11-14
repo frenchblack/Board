@@ -2,6 +2,9 @@
 //csrf 토큰 설정
 var c_token = $("meta[name='_csrf']").attr("content");
 var c_header = $("meta[name='_csrf_header']").attr("content");
+var c_parameterName = $("meta[name='_csrf_parameterName']").attr("content");
+
+//console.log(c_token + '/' + c_header + '/' + c_parameterName);
 
 $(function() {
     $(document).ajaxSend(function(e, xhr, options) {
