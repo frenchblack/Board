@@ -6,7 +6,7 @@
 		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 
 	<security:http auto-config="true" use-expressions="true">
-		<security:csrf disabled="false"/>
+		<security:csrf disabled="true"/>
 		<security:intercept-url pattern="/**" access="permitAll" />
 		<security:form-login login-page="/User/getLoginForm.do" 
 			authentication-success-handler-ref="loginSuccessHandler" 

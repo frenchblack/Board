@@ -15,7 +15,6 @@
           max-height: 500px;
       }
     </style>
-    <script src="https://cdn.ckeditor.com/ckeditor5/31.0.0/classic/ckeditor.js"></script>
   </head>
   <body>
     <div id="wrapper">
@@ -54,10 +53,10 @@
 
       <%@ include file = "/layout/tail.jsp" %>
     </div>
-
+    <script src="https://cdn.ckeditor.com/ckeditor5/31.0.0/classic/ckeditor.js"></script>
     <script type="text/javascript" src="/js/common.js"></script>
+    <script type="text/javascript" src="/js/uploadAdapter.js"></script>
     <script type="text/javascript">
-      console.log($("#user_id").val());
 
       $( '#btnSave' ).click( function(e) {
         e.preventDefault();
@@ -81,7 +80,9 @@
         }
 
         ClassicEditor
-            .create( document.querySelector( '#content' ) )
+            .create( document.querySelector( '#content' ), {
+              extraPlugins: [ MyCustomUploadAdapterPlugin ]
+            })
             .catch( error => {
                 console.error( error );
             } );
