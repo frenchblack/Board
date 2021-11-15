@@ -5,11 +5,18 @@ public class BoardVO {
 	public String user_id;
 	public String title;
 	public String content;
+	public String s_content;
 	public String in_id;
 	public String in_date; 
 	public String up_id;
 	public String up_date;
 	
+	public String getS_content() {
+		return s_content;
+	}
+	public void setS_content(String s_content) {
+		this.s_content = s_content;
+	}
 	public int getBoard_cd() {
 		return board_cd;
 	}

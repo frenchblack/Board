@@ -31,6 +31,7 @@
         <div>
           <form:form name="form" id="form" role="form" modelAttribute="boardVO" method="post" action="/Board/Free/insertBoard.do">
             <form:hidden path="board_cd"/>
+            <form:hidden id="s_content" name="s_content" path="s_content"/>
             <input type="hidden" name="mode"/>
 
             <div class="mb-3">
@@ -59,8 +60,11 @@
     <script type="text/javascript" src="/js/common.js"></script>
     <script type="text/javascript" src="/js/uploadAdapter.js"></script>
     <script type="text/javascript">
+      var contEditor;
 
       $( '#btnSave' ).click( function(e) {
+        console.log(contEditor.getData());
+        $('#s_content').val(removeHTMLTag(contEditor.getData()));
         e.preventDefault();
         $("#form").submit();
       }); 
@@ -84,6 +88,9 @@
         ClassicEditor
             .create( document.querySelector( '#content' ), {
               extraPlugins: [ MyCustomUploadAdapterPlugin ]
+            })
+            .then( editor => {
+              contEditor = editor;
             })
             .catch( error => {
                 console.error( error );

@@ -19,7 +19,7 @@
 		    	A.TITLE LIKE CONCAT('%', #{searchVO.keyword}, '%')
 		    </if> 
 		    <if test="searchVO.searchType == 'content' or searchVO.searchType == 'all'">
-		     OR A.CONTENT LIKE CONCAT('%', #{searchVO.keyword}, '%')
+		     OR A.S_CONTENT LIKE CONCAT('%', #{searchVO.keyword}, '%')
 		    </if>
 		    <if test="searchVO.searchType == 'in_id' or searchVO.searchType == 'all'">
 		     OR A.IN_ID LIKE CONCAT('%', #{searchVO.keyword}, '%')
@@ -49,10 +49,10 @@
 	  <trim prefix="WHERE" prefixOverrides="AND |OR ">
 	  	<if test="keyword != null and keyword != ''">
 		    <if test="searchType == 'title' or searchType == 'all'">
-		    	TITLE LIKE CONCAT('%', #{keyword}, '%')
+		    	TITLE LIKE CONCAT('%', #{keyword}, '%') 
 		    </if> 
 		    <if test="searchType == 'content' or searchType == 'all'">
-		     OR CONTENT LIKE CONCAT('%', #{keyword}, '%')
+		     OR S_CONTENT LIKE CONCAT('%', #{keyword}, '%')
 		    </if>
 		    <if test="searchType == 'in_id' or searchType == 'all'">
 		     OR IN_ID LIKE CONCAT('%', #{keyword}, '%')
@@ -87,6 +87,7 @@
 		  		USER_ID
 			  , TITLE
 			  , CONTENT
+			  , S_CONTENT
 			  , IN_ID
 			  , IN_DATE
 			  , UP_ID
@@ -95,6 +96,7 @@
 			    #{user_id}
 			  , #{title}
 			  , #{content}
+			  , #{s_content}
 			  , #{in_id}
 			  , NOW()
 			  , #{up_id}
@@ -131,6 +133,7 @@
 		UPDATE BOARD
 		   SET TITLE = #{title}
 		     , CONTENT = #{content}
+		     , S_CONTENT = #{s_content}
 		     , UP_ID = #{up_id}
 		     , UP_DATE = NOW()
 		 WHERE BOARD_CD = #{board_cd}

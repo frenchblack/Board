@@ -98,3 +98,10 @@ function MyCustomUploadAdapterPlugin( editor ) {
         return new UploadAdapter( loader );
     };
 }
+
+function removeHTMLTag(text) {
+  text = text.replace(/<br\/>/ig, " ");
+  text = text.replace(/<(\/)?([a-zA-Z]*)(\s[a-zA-Z]*=[^>]*)?(\s)*(\/)?>/ig, "");
+
+  return text;
+}
