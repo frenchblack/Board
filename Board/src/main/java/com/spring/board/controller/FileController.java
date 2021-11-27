@@ -17,7 +17,6 @@ import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.io.output.ByteArrayOutputStream;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -27,10 +26,14 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
+import net.coobird.thumbnailator.Thumbnails;
+
 @RestController
 @RequestMapping(value = "/File")
 public class FileController {
 	private static final Logger logger = LoggerFactory.getLogger(FileController.class);
+	private String F_PATH = "D:/file/upload/";
+	private String T_PATH = "D:/file/upload/thumbnail/";
 	
 	@RequestMapping(value = "/upload", method = RequestMethod.POST) 
 	public @ResponseBody Map<String, Object> fileUpload(HttpSession session, MultipartHttpServletRequest mtfRequest) throws Exception {
@@ -44,7 +47,6 @@ public class FileController {
 //		MailVO mailVO = new MailVO();
 		Map<String, Object> result = new HashMap<String, Object>();
 		
-		String PATH = "D:/file/upload/";
 		String fileName = ""; // 파일 이름(확장자 제외)
 		String fileFullName = ""; // 파일 이름(확장자 포함)
 		String fileType = ""; // 파일 확장자
@@ -64,17 +66,23 @@ public class FileController {
 			if(itr.hasNext()) {
 				List<MultipartFile> mpf = mtfRequest.getFiles((String) itr.next());
 				for(int i = 0; i < mpf.size(); i++) {
-					File file = new File(PATH + mpf.get(i).getOriginalFilename());
+					File file = new File(F_PATH + mpf.get(i).getOriginalFilename());
 					fileFullName = mpf.get(i).getOriginalFilename();
 					fileName = FilenameUtils.getBaseName(mpf.get(i).getOriginalFilename());
 					fileType = fileFullName.substring(fileFullName.lastIndexOf(".")+1, fileFullName.length());
-					file = new File(PATH + fileName + "_" + fileUploadTime + "." + fileType);
+					file = new File(F_PATH + fileName + "_" + fileUploadTime + "." + fileType);
 					logger.info("----------------------- FILE UPLOAD START ---------------------------");
-					logger.info(PATH + fileName + "_" + fileUploadTime + "." + fileType);
+					logger.info(F_PATH + fileName + "_" + fileUploadTime + "." + fileType);
 					logger.info("FILE : " + file.getAbsolutePath());
 					logger.info("SIZE : " + mpf.get(i).getSize() + "bytes");
 					logger.info("----------------------- FILE UPLOAD END -----------------------------");
 					mpf.get(i).transferTo(file); // 파일 전송 
+					
+					File thumbnailFile = new File(T_PATH + fileName + "_" + fileUploadTime + "." + fileType);				
+					
+					Thumbnails.of(file)
+			        .size(160, 160)
+			        .toFile(thumbnailFile);
 				}
 			}
 			
@@ -90,17 +98,23 @@ public class FileController {
 	}
 
 	@GetMapping(value="/getImg")
-    public @ResponseBody byte[] getImage(@RequestParam("file_name") String file_name) // A
-            throws IOException{
-		logger.info("getImg");
+    public @ResponseBody byte[] getImage(@RequestParam("file_name") String file_name
+    								   , @RequestParam(value = "isThumb", required = false, defaultValue = "false") boolean isThumb) throws IOException{
+		logger.info("getImg" + isThumb);
 		
         FileInputStream fis = null;
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
 
         //String filePath = fileAr[0];
+        String fileDir;
+        if ( isThumb ) {
+        	fileDir = T_PATH + file_name;
+        } else {
+        	fileDir = F_PATH + file_name;
+        }
 
-        String fileDir = "D:/file/upload/" + file_name; // 파일경로
-
+//        logger.info("fileDir: " + fileDir);
+        
         try{
             fis = new FileInputStream(fileDir);
         } catch(FileNotFoundException e){

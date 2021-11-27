@@ -32,6 +32,7 @@
           <form:form name="form" id="form" role="form" modelAttribute="boardVO" method="post" action="/Board/Free/insertBoard.do">
             <form:hidden path="board_cd"/>
             <form:hidden id="s_content" name="s_content" path="s_content"/>
+            <form:hidden id="thumbnail" name="thumbnail" path="thumbnail"/>
             <input type="hidden" name="mode"/>
 
             <div class="mb-3">
@@ -63,10 +64,12 @@
       var contEditor;
 
       $( '#btnSave' ).click( function(e) {
-        console.log(contEditor.getData());
+        // console.log(contEditor.getData());
+        // console.log(getThumbnail(contEditor.getData()));
+        $('#thumbnail').val(getThumbnail(contEditor.getData()));
         $('#s_content').val(removeHTMLTag(contEditor.getData()));
         e.preventDefault();
-        $("#form").submit();
+        $("#form").submit();  
       }); 
 
       $( '#btnList' ).click( function(e) {
@@ -96,6 +99,25 @@
                 console.error( error );
             } );
       });
+
+      //썸네일 찾기
+      function getThumbnail(cont) {
+        let f_index = -1;
+        let l_index = -1;
+        let no_image = "/img/no_image.jpg";
+
+        f_index = cont.indexOf("<img src=\"", 0) + 10;
+
+        if ( f_index == -1 ) return no_image;
+
+        l_index = cont.indexOf("\"", f_index); 
+
+        if ( l_index == -1 ) {
+          return no_image;
+        } else {
+          return cont.substring(f_index, l_index) + "&isThumb=true";
+        } 
+      }
     </script>
   </body>
 </html>

@@ -20,4 +20,5 @@ public interface BoardDAO {
 	public Map<String, Integer> updateComment(CommentVO commentVO) throws Exception;
 	public Map<String, Integer> insertComment(CommentVO commentVO) throws Exception;
 	public int deleteComment(CommentVO commentVO) throws Exception;
+	public List<BoardVO> getNewList() throws Exception;
 }

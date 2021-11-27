@@ -75,4 +75,8 @@ public class BoardServiceImpl implements BoardService {
 		
 	}
 
+	@Override
+	public List<BoardVO> getNewList() throws Exception {
+		return boardDAO.getNewList();
+	}
 }

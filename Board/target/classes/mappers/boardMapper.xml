@@ -80,6 +80,16 @@
 		  FROM BOARD_COMMENT A
 		 WHERE A.BOARD_CD = #{board_cd}
 	</select>
+	<!-- 메인화면 글 selsct -->
+	<select id="getNewList" resultType="com.spring.board.model.BoardVO">
+		SELECT A.BOARD_CD AS BOARD_CD
+		     , A.TITLE AS TITLE
+		     , A.THUMBNAIL AS THUMBNAIL
+		  FROM BOARD A
+		 ORDER BY A.IN_DATE DESC
+		          LIMIT 10
+	</select>
+	
 	<!-- board insert -->
 	<insert id="insertBoard" parameterType="com.spring.board.model.BoardVO">
 		INSERT
@@ -88,6 +98,7 @@
 			  , TITLE
 			  , CONTENT
 			  , S_CONTENT
+			  , THUMBNAIL
 			  , IN_ID
 			  , IN_DATE
 			  , UP_ID
@@ -97,6 +108,7 @@
 			  , #{title}
 			  , #{content}
 			  , #{s_content}
+			  , #{thumbnail}
 			  , #{in_id}
 			  , NOW()
 			  , #{up_id}
@@ -134,6 +146,7 @@
 		   SET TITLE = #{title}
 		     , CONTENT = #{content}
 		     , S_CONTENT = #{s_content}
+		     , THUMBNAIL = #{thumbnail}
 		     , UP_ID = #{up_id}
 		     , UP_DATE = NOW()
 		 WHERE BOARD_CD = #{board_cd}

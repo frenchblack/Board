@@ -6,11 +6,18 @@ public class BoardVO {
 	public String title;
 	public String content;
 	public String s_content;
+	public String thumbnail;
 	public String in_id;
 	public String in_date; 
 	public String up_id;
 	public String up_date;
-	
+
+	public String getThumbnail() {
+		return thumbnail;
+	}
+	public void setThumbnail(String thumbnail) {
+		this.thumbnail = thumbnail;
+	}
 	public String getS_content() {
 		return s_content;
 	}

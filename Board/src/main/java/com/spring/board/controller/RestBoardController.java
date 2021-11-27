@@ -1,6 +1,7 @@
 package com.spring.board.controller;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.inject.Inject;
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.spring.board.common.Pagination;
 import com.spring.board.common.URIParser;
+import com.spring.board.model.BoardVO;
 import com.spring.board.model.CommentVO;
 import com.spring.board.service.BoardService;
 
@@ -93,5 +95,14 @@ public class RestBoardController {
 		result = boardService.deleteComment(commentVO);
 		
 		return result + "";
+	}
+	
+	@RequestMapping(value = "/Home/getNewList", method = RequestMethod.POST)
+	public List<BoardVO> getNewList() throws Exception {
+		logger.info("getNewList");
+		
+		List<BoardVO> result = boardService.getNewList();
+		
+		return result;
 	}
 }

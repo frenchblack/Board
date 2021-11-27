@@ -102,4 +102,9 @@ public class BoardDAOImpl implements BoardDAO {
 		return sqlSession.delete("boardMapper.deleteComment", commentVO);
 	}
 
+	@Override
+	public List<BoardVO> getNewList() throws Exception {
+		return sqlSession.selectList("boardMapper.getNewList");
+	}
+
 }

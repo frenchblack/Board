@@ -6,6 +6,8 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="_csrf_header" content="${_csrf.headerName}" />
+    <meta name="_csrf" content="${_csrf.token}" />
     <title>title</title>
     <link rel="stylesheet" href="/css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="/css/common/common.css">
@@ -72,9 +74,8 @@
             <li class="bg-dark border border-dark" data-target="#multi-item-example" data-slide-to="3"></li>
           </ol>
 
-          <div class="carousel-inner v-2" role="listbox">
-            
-            <div class="carousel-item active">
+          <div id="homeCarousel" class="carousel-inner v-2" role="listbox">   
+<!--             <div class="carousel-item active">
               <div class="col-12 col-md-3">
                 <div class="card md-2" onclick="alert('클릭');">
                   <img src="" class="card-img-top" alt="Card image" onerror="this.src='/img/no_image.jpg'">
@@ -85,108 +86,72 @@
                   </div>
                 </div>
               </div>
-            </div>
-            <div class="carousel-item">
-              <div class="col-12 col-md-3">
-                <div class="card md-2">
-                  <img src="" class="card-img-top" alt="Card image" onerror="this.src='/img/no_image.jpg'">
-                  <div class="card-body">
-                    <h5 class="card-title">2.Card title</h5>
-                    <p class="card-text">This card has supporting text below as a natural lead-in to additional content.</p>
-                    <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="carousel-item">
-              <div class="col-12 col-md-3">
-                <div class="card md-2">
-                  <img src="" class="card-img-top" alt="Card image" onerror="this.src='/img/no_image.jpg'">
-                  <div class="card-body">
-                    <h5 class="card-title">3.Card title</h5>
-                    <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This card has even longer content than the first to show that equal height action.</p>
-                    <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="carousel-item">
-              <div class="col-12 col-md-3">
-                <div class="card md-2">
-                  <img src="" class="card-img-top" alt="Card image" onerror="this.src='/img/no_image.jpg'">
-                  <div class="card-body">
-                    <h5 class="card-title">4.Card title</h5>
-                    <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This card has even longer content than the first to show that equal height action.</p>
-                    <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="carousel-item">
-              <div class="col-12 col-md-3">
-                <div class="card md-2">
-                  <img src="" class="card-img-top" alt="Card image" onerror="this.src='/img/no_image.jpg'">
-                  <div class="card-body">
-                    <h5 class="card-title">5.Card title</h5>
-                    <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This card has even longer content than the first to show that equal height action.</p>
-                    <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
-                  </div>
-                </div>
-              </div>
-            </div>  
-
+            </div> -->
           </div>
 
         </div>
       </div>
-
-<!--         <div class="card-deck">
-  <div class="card" onclick="alert('클릭');">
-    <img src="" class="card-img-top" alt="Card image" onerror="this.src='https://thumbs.dreamstime.com/b/no-image-available-icon-photo-camera-flat-vector-illustration-132483097.jpg'">
-    <div class="card-body">
-      <h5 class="card-title">Card title</h5>
-      <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-      <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
-    </div>
-  </div>
-  <div class="card">
-    <img src="" class="card-img-top" alt="Card image" onerror="this.src='https://thumbs.dreamstime.com/b/no-image-available-icon-photo-camera-flat-vector-illustration-132483097.jpg'">
-    <div class="card-body">
-      <h5 class="card-title">Card title</h5>
-      <p class="card-text">This card has supporting text below as a natural lead-in to additional content.</p>
-      <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
-    </div>
-  </div>
-  <div class="card">
-    <img src="" class="card-img-top" alt="Card image" onerror="this.src='https://thumbs.dreamstime.com/b/no-image-available-icon-photo-camera-flat-vector-illustration-132483097.jpg'">
-    <div class="card-body">
-      <h5 class="card-title">Card title</h5>
-      <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This card has even longer content than the first to show that equal height action.</p>
-      <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
-    </div>
-  </div>
-  <div class="card">
-    <img src="" class="card-img-top" alt="Card image" onerror="this.src='https://thumbs.dreamstime.com/b/no-image-available-icon-photo-camera-flat-vector-illustration-132483097.jpg'">
-    <div class="card-body">
-      <h5 class="card-title">Card title</h5>
-      <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This card has even longer content than the first to show that equal height action.</p>
-      <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
-    </div>
-  </div>
-</div>
-      </div>
-    </div> -->
-
       <%@ include file = "/layout/tail.jsp" %>
     </div>
     
     <script type="text/javascript" src="/js/common.js"></script>
     <script type="text/javascript">
-      $( '#multi-item-example' ).carousel ({
-        interval: 10000
-      })
+      //READY 이벤트
+      $(document).ready(function() {
+        getNewList();
+      });
 
-      $( '.carousel .carousel-item' ).each ( function () {
+      //게시판 최신글 조회
+      function getNewList() {
+        let url = "/RestBoard/Home/getNewList.do";
+
+        $.ajax({
+            type: 'POST'
+          , url: url
+          , data: ''
+          , dataType: 'json'
+          , success: function ( result ) {
+            console.log(result);
+            setCarouselItem(result);
+          }
+        });
+      }
+
+      //캐러셀 아이템 셋팅
+      function setCarouselItem( result ) {
+        let carouselHTML = "";
+
+        //게시물 개수 확인
+        if ( result.length > 0 ) {
+          $( result ).each(function(index) {
+            let firstId = index==0?'id="carousel0" ':'';
+
+            carouselHTML += '<div ' + firstId + 'class="carousel-item">';
+            carouselHTML +=   '<div class="col-12 col-md-3">';
+            carouselHTML +=     '<div class="card md-2">';
+            carouselHTML +=       '<img src="" class="card-img-top" alt="Card image" onerror="this.src=\'' + this.thumbnail + '\'">';
+            carouselHTML +=       '<div class="card-body">';
+            carouselHTML +=         '<h5 class="card-title">' + this.title + '</h5>';
+            carouselHTML +=       '</div>';
+            carouselHTML +=     '</div>';
+            carouselHTML +=   '</div>';
+            carouselHTML += '</div>';
+          });
+
+          $('#homeCarousel').html(carouselHTML);
+          $('#carousel0').addClass('active');
+        } else {
+          //아무글도 없을 때 등록된 게시글이 없습니다.
+        }
+        activeCarousel();
+      }
+
+      function activeCarousel() {
+        $( '#multi-item-example' ).carousel ({
+          interval: 10000
+        });
+
+        $( '.carousel .carousel-item' ).each ( function () {
           var minPerSlide = 4;
           var next = $(this).next();
           if ( !next.length ) {
@@ -201,8 +166,9 @@
               }
               
               next.children(':first-child').clone().appendTo($(this));
-            }
-      });
+          }
+        });
+      }
     </script>
   </body>
 </html>
