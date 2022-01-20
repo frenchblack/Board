@@ -8,8 +8,8 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>title</title>
-    <link rel="stylesheet" href="/css/bootstrap.min.css">
-    <link rel="stylesheet" type="text/css" href="/css/common/common.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/common/common.css">
     <style type="text/css">
       a:link {text-decoration: none; color: #333333;}
       a:visited {text-decoration: none; color: #333333;}
@@ -40,7 +40,7 @@
         </div>
         <!--joinForm-->
         <div class="container col-6">
-          <form:form name="form" id="form" role="form" modelAttribute="userVO" method="post" action="/User/login.do">
+          <form:form name="form" id="form" role="form" modelAttribute="userVO" method="post" action="${pageContext.request.contextPath}/User/login.do">
             <div class="mb-3 form-group">
               <label class="mr-2" for="user_id">ID</label>
               <div class="form-inline">
@@ -65,8 +65,8 @@
       <%@ include file = "/layout/tail.jsp" %>
     </div>
 
-    <script type="text/javascript" src="/js/common.js"></script>
-    <script type="text/javascript" src="/js/util/util.js"></script>
+    <script type="text/javascript" src="${pageContext.request.contextPath}/js/common.js"></script>
+    <script type="text/javascript" src="${pageContext.request.contextPath}/js/util/util.js"></script>
     <script type="text/javascript">
       //-------------------------------------------------------
       // 사용자 정의 이벤트

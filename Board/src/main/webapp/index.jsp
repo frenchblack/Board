@@ -9,8 +9,8 @@
     <meta name="_csrf_header" content="${_csrf.headerName}" />
     <meta name="_csrf" content="${_csrf.token}" />
     <title>title</title>
-    <link rel="stylesheet" href="/css/bootstrap.min.css">
-    <link rel="stylesheet" type="text/css" href="/css/common/common.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/common/common.css">
     <style type="text/css">
       @media (max-width: 768px) {
           .carousel-inner .carousel-item > div {
@@ -45,6 +45,10 @@
       .carousel-inner .carousel-item-left{ 
         transform: translateX(0);
       }
+
+      .card-height {
+        height: 350px;
+      }
     </style>
   </head>
   <body>
@@ -67,12 +71,12 @@
           </a>
          
           <!--Indicators-->
-          <ol class="carousel-indicators">
+<!--           <ol class="carousel-indicators">
             <li class="bg-dark border border-dark" data-target="#multi-item-example" data-slide-to="0" class="active"></li>
             <li class="bg-dark border border-dark" data-target="#multi-item-example" data-slide-to="1"></li>
             <li class="bg-dark border border-dark" data-target="#multi-item-example" data-slide-to="2"></li>
             <li class="bg-dark border border-dark" data-target="#multi-item-example" data-slide-to="3"></li>
-          </ol>
+          </ol> -->
 
           <div id="homeCarousel" class="carousel-inner v-2" role="listbox">   
 <!--             <div class="carousel-item active">
@@ -94,7 +98,7 @@
       <%@ include file = "/layout/tail.jsp" %>
     </div>
     
-    <script type="text/javascript" src="/js/common.js"></script>
+    <script type="text/javascript" src="${pageContext.request.contextPath}/js/common.js"></script>
     <script type="text/javascript">
       //READY 이벤트
       $(document).ready(function() {
@@ -103,7 +107,7 @@
 
       //게시판 최신글 조회
       function getNewList() {
-        let url = "/RestBoard/Home/getNewList.do";
+        let url = "${pageContext.request.contextPath}/RestBoard/Home/getNewList.do";
 
         $.ajax({
             type: 'POST'
@@ -127,8 +131,8 @@
             let firstId = index==0?'id="carousel0" ':'';
 
             carouselHTML += '<div ' + firstId + 'class="carousel-item">';
-            carouselHTML +=   '<div class="col-12 col-md-3">';
-            carouselHTML +=     '<div class="card md-2">';
+            carouselHTML +=   '<div class="col-12 col-md-3" onclick="moveContent(' + this.board_cd + ');" style="cursor:pointer;">';
+            carouselHTML +=     '<div class="card md-2 card-height">';
             carouselHTML +=       '<img src="" class="card-img-top" alt="Card image" onerror="this.src=\'' + this.thumbnail + '\'">';
             carouselHTML +=       '<div class="card-body">';
             carouselHTML +=         '<h5 class="card-title">' + this.title + '</h5>';
@@ -168,6 +172,10 @@
               next.children(':first-child').clone().appendTo($(this));
           }
         });
+      }
+
+      function moveContent(board_cd) {
+        location.href = "${pageContext.request.contextPath}/Board/Free/getBoardContent.do?board_cd=" + board_cd;
       }
     </script>
   </body>

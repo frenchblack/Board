@@ -5,7 +5,7 @@
 
 <!-- 상단 navbar -->
 <nav class="navbar fixed-top navbar-expand-sm navbar-dark bg-dark navbar-top">
-	<a class="navbar-brand" href="/">Board</a>
+	<a class="navbar-brand" href="${pageContext.request.contextPath}/">Board</a>
 	<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
 	  <span class="navbar-toggler-icon">
 	  </span>
@@ -13,7 +13,7 @@
 	<div class="collapse navbar-collapse es-12" id="navbarSupportedContent">
 	  <ul class="navbar-nav mr-auto">
 	    <li class="nav-item active">
-	      <a class="nav-link" href="/Board/Free/getBoardList.do">자유게시판
+	      <a class="nav-link" href="${pageContext.request.contextPath}/Board/Free/getBoardList.do">자유게시판
 	      </a>
 	    </li>
 	  </ul>
@@ -24,11 +24,11 @@
 	  		<a class="nav-link">어서오세요 ${ath_user_nm}</a>
 	  	</sec:authorize>
 	    <li class="nav-item active">
-	      <a class="nav-link" href="/User/getJoinForm.do">회원가입</a>
+	      <a class="nav-link" href="${pageContext.request.contextPath}/User/getJoinForm.do">회원가입</a>
 	    </li>
 	    <sec:authorize access="isAnonymous()">
 		    <li class="nav-item active">
-		      <a class="nav-link" href="/User/getLoginForm.do">로그인
+		      <a class="nav-link" href="${pageContext.request.contextPath}/User/getLoginForm.do">로그인
 		      </a>
 		    </li>
 		</sec:authorize>
@@ -39,7 +39,7 @@
 			        <button type="submit">LOGOUT</button>
 		    	</form> -->
 		      <a class="nav-link" onclick="document.getElementById('logout_form').submit();">로그아웃</a>
-		      <form id="logout_form" action="/User/logout.do" method="POST">
+		      <form id="logout_form" action="${pageContext.request.contextPath}/User/logout.do" method="POST">
 		      	<sec:csrfInput/>
 		      	<!-- <input type="hidden" name="name"> -->
 		      </form> 
@@ -80,3 +80,6 @@
 	  </div>
 	</div> -->
 </nav>
+<script type="text/javascript" charset="utf-8">
+	sessionStorage.setItem("contextpath", '<%=request.getContextPath() %>');
+</script>

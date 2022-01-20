@@ -8,8 +8,8 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>title</title>
-    <link rel="stylesheet" href="/css/bootstrap.min.css">
-    <link rel="stylesheet" type="text/css" href="/css/common/common.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/common/common.css">
     <style type="text/css">
       .search-group{
         display: inline;
@@ -55,7 +55,7 @@
                     <tr class="table-tr">
                       <td><c:out value="${list.board_cd}"/></td> 
                       <td>
-                        <a href="${uriParser.freeContent}${uriParser.parsingURI({'board_cd':list.board_cd})}" style="color: black;">
+                        <a href="${pageContext.request.contextPath}${uriParser.freeContent}${uriParser.parsingURI({'board_cd':list.board_cd})}" style="color: black;">
                           <c:out value="${list.title}"/>
                         </a>
                       </td>
@@ -72,7 +72,7 @@
           <div id="paginationBox">
             <ul class="pagination justify-content-center">
               <c:if test="${pagination.prev}">
-                <li class="page-item"><a class="page-link" href="${uriParser.freeList}${uriParser.parsingURI({'page' : pagination.startPage - 1, 'range' : pagination.range - 1}, searchVO)}">Previous</a></li>
+                <li class="page-item"><a class="page-link" href="${pageContext.request.contextPath}${uriParser.freeList}${uriParser.parsingURI({'page' : pagination.startPage - 1, 'range' : pagination.range - 1}, searchVO)}">Previous</a></li>
               </c:if>      
               <c:forEach begin="${pagination.startPage}" end="${pagination.endPage}" var="idx">
                 <c:choose>
@@ -81,12 +81,12 @@
                   </c:when>
                   <c:otherwise>
                     <li class="page-item">
-                       <a class="page-link" href="${uriParser.freeList}${uriParser.parsingURI({'page':idx, 'range':pagination.range}, searchVO)}">${idx} </a></li>
+                       <a class="page-link" href="${pageContext.request.contextPath}${uriParser.freeList}${uriParser.parsingURI({'page':idx, 'range':pagination.range}, searchVO)}">${idx} </a></li>
                   </c:otherwise>
                 </c:choose>
               </c:forEach>      
               <c:if test="${pagination.next}">
-                <li class="page-item"><a class="page-link" href="${uriParser.freeList}${uriParser.parsingURI({'page':pagination.endPage + 1, 'range':pagination.range + 1}, searchVO)}">Next</a></li>
+                <li class="page-item"><a class="page-link" href="${pageContext.request.contextPath}${uriParser.freeList}${uriParser.parsingURI({'page':pagination.endPage + 1, 'range':pagination.range + 1}, searchVO)}">Next</a></li>
               </c:if>
             </ul>
           </div>
@@ -111,11 +111,11 @@
       <%@ include file = "/layout/tail.jsp" %>
     </div>
 
-    <script type="text/javascript" src="/js/common.js"></script>
+    <script type="text/javascript" src="${pageContext.request.contextPath}/js/common.js"></script>
     <script type="text/javascript">
       //이벤트 등록
       $( '#btnWriteForm' ).click( function() {
-        location.href = "${uriParser.freeWirte}";
+        location.href = "${pageContext.request.contextPath}${uriParser.freeWirte}";
       });
 
       $( '#btnSearch' ).on( 'click', fn_exSearch );
@@ -131,7 +131,7 @@
 
       //검색 함수
       function fn_exSearch() {
-        var url = "${uriParser.freeList}";
+        var url = "${pageContext.request.contextPath}${uriParser.freeList}";
 
         if ( $( '#keyword' ).val() == "" ) {
           location.href = url;

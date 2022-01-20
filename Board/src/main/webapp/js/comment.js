@@ -2,7 +2,7 @@
 
 //Comment
 var boardCd = scriptQuery();
-addJavascript("/js/util/pagination.js");
+addJavascript(ctx + "/js/util/pagination.js");
 
 var commMessage = {
   update : "수정한 댓글을 저장 하시겠습니까?"
@@ -114,7 +114,7 @@ function commetSuccess( result, blinkComm ) {
       ptrHtml += '</div>';
     })
 
-    ptrHtml += ptrPaginationToHtml(result.pagination, "/RestBoard/Free/getCommentList.do");
+    ptrHtml += ptrPaginationToHtml(result.pagination, ctx + "/RestBoard/Free/getCommentList.do");
     pageInfo.page = result.pagination.page;
     pageInfo.range = result.pagination.range;
   }
@@ -133,7 +133,7 @@ function pagingOnClick( url, page, range, location) {
 
 //댓글 조회 함수
 function getCommentList( blinkComm, page, range) {
-  let url = "/RestBoard/Free/getCommentList.do";
+  let url = ctx + "/RestBoard/Free/getCommentList.do";
   let params = { "board_cd" : boardCd.board_cd
                , "listSize" : 10
                , "rangeSize" : 5
@@ -155,7 +155,7 @@ function getCommentList( blinkComm, page, range) {
 
 //댓글 저장 함수
 function saveComment( fId ) {
-  let url = "/RestBoard/Free/insertComment.do";
+  let url = ctx + "/RestBoard/Free/insertComment.do";
   let formId = '#' + fId;
   let params = JSON.stringify($(formId).serializeObject());
 
@@ -183,7 +183,7 @@ function saveComment( fId ) {
 
 //댓글 삭제
 function delComment( idCd ) {
-  let url = "/RestBoard/Free/deleteComment.do";
+  let url = ctx + "/RestBoard/Free/deleteComment.do";
   let formId = '#' + idCd;
   let params = JSON.stringify($(formId).serializeObject());
 

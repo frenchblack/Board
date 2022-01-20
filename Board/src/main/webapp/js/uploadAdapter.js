@@ -30,7 +30,8 @@ class UploadAdapter {
       // integration to choose the right communication channel. This example uses
       // a POST request with JSON as a data structure but your configuration
       // could be different.
-      xhr.open( 'POST', 'http://localhost/File/upload.do?' + c_parameterName + '=' + c_token , true );
+      // xhr.open( 'POST', 'http://localhost/File/upload.do?' + c_parameterName + '=' + c_token , true );
+      xhr.open( 'POST', ctx + '/File/upload.do?' + c_parameterName + '=' + c_token , true );
       xhr.responseType = 'json';
   }
 

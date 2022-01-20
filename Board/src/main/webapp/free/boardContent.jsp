@@ -12,9 +12,9 @@
     <meta name="_csrf" content="${_csrf.token}" />
 
     <title>title</title>
-    <link rel="stylesheet" href="/css/bootstrap.min.css">
-    <link rel="stylesheet" type="text/css" href="/css/common/common.css">
-    <link rel="stylesheet" type="text/css" href="/css/common/comment.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/common/common.css">
+    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/common/comment.css">
     <style type="text/css">
       .board-info {
       }
@@ -79,9 +79,9 @@
       <%@ include file = "/layout/tail.jsp" %>
     </div>
 
-    <script type="text/javascript" src="/js/common.js"></script>
-    <script type="text/javascript" src="/js/util/util.js"></script>
-    <script type="text/javascript" src="/js/comment.js?board_cd=${boardContent.board_cd}"></script>
+    <script type="text/javascript" src="${pageContext.request.contextPath}/js/common.js"></script>
+    <script type="text/javascript" src="${pageContext.request.contextPath}/js/util/util.js"></script>
+    <script type="text/javascript" src="${pageContext.request.contextPath}/js/comment.js?board_cd=${boardContent.board_cd}"></script>
     <script type="text/javascript">
       //-------------------------------------------
       //--------------------이벤트-----------------
@@ -89,12 +89,12 @@
       //목록
       $( '#btnList' ).click( function(e) {
         e.preventDefault(); 
-        location.href = '/Board/Free/getBoardList.do';
+        location.href = '${pageContext.request.contextPath}/Board/Free/getBoardList.do';
       });
 
       //글 수정
       $( '#btnUpdate' ).click( function() {
-        let url = "/Board/Free/updateForm.do";
+        let url = "${pageContext.request.contextPath}/Board/Free/updateForm.do";
         url += "?board_cd=" + ${boardContent.board_cd};
         url += "&mode=update";
 
@@ -103,7 +103,7 @@
 
       //글 삭제
       $( '#btnDel' ).click( function() {
-        location.href = '/Board/Free/deleteBoard.do?board_cd=' + ${boardContent.board_cd};
+        location.href = '${pageContext.request.contextPath}/Board/Free/deleteBoard.do?board_cd=' + ${boardContent.board_cd};
       });
     </script>
   </body>

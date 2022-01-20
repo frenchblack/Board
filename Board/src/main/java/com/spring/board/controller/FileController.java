@@ -32,8 +32,10 @@ import net.coobird.thumbnailator.Thumbnails;
 @RequestMapping(value = "/File")
 public class FileController {
 	private static final Logger logger = LoggerFactory.getLogger(FileController.class);
-	private String F_PATH = "D:/file/upload/";
-	private String T_PATH = "D:/file/upload/thumbnail/";
+//	private String F_PATH = "D:/file/upload/";
+//	private String T_PATH = "D:/file/upload/thumbnail/";
+	private String F_PATH = "/home/ubuntu/file/spring/";
+	private String T_PATH = "/home/ubuntu/file/spring/thmbnail/";
 	
 	@RequestMapping(value = "/upload", method = RequestMethod.POST) 
 	public @ResponseBody Map<String, Object> fileUpload(HttpSession session, MultipartHttpServletRequest mtfRequest) throws Exception {
@@ -86,9 +88,11 @@ public class FileController {
 				}
 			}
 			
+			logger.info("getContextPath() : " + mtfRequest.getContextPath());
+			
 			result.put("uploaded", true);
 			result.put("fileName", fileName);
-			result.put("url", "/File/getImg.do?file_name=" + fileName + "_" + fileUploadTime + "." + fileType);
+			result.put("url", mtfRequest.getContextPath() + "/File/getImg.do?file_name=" + fileName + "_" + fileUploadTime + "." + fileType);
 		} catch (Exception e) { 
 			e.printStackTrace();
 			result.put("uploaded", false); 

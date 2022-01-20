@@ -9,8 +9,8 @@
     <meta name="_csrf_parameterName" content="${_csrf.parameterName}" />
     <meta name="_csrf" content="${_csrf.token}" />
     <title>title</title>
-    <link rel="stylesheet" href="/css/bootstrap.min.css">
-    <link rel="stylesheet" type="text/css" href="/css/common/common.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/common/common.css">
     <style type="text/css">
       .ck-editor__editable {
           min-height: 300px;
@@ -29,7 +29,7 @@
           <h4> 글 작성 </h4>
         </div>
         <div>
-          <form:form name="form" id="form" role="form" modelAttribute="boardVO" method="post" action="/Board/Free/insertBoard.do">
+          <form:form name="form" id="form" role="form" modelAttribute="boardVO" method="post" action="${pageContext.request.contextPath}/Board/Free/insertBoard.do">
             <form:hidden path="board_cd"/>
             <form:hidden id="s_content" name="s_content" path="s_content"/>
             <form:hidden id="thumbnail" name="thumbnail" path="thumbnail"/>
@@ -58,8 +58,8 @@
       <%@ include file = "/layout/tail.jsp" %>
     </div>
     <script src="https://cdn.ckeditor.com/ckeditor5/31.0.0/classic/ckeditor.js"></script>
-    <script type="text/javascript" src="/js/common.js"></script>
-    <script type="text/javascript" src="/js/uploadAdapter.js"></script>
+    <script type="text/javascript" src="${pageContext.request.contextPath}/js/common.js"></script>
+    <script type="text/javascript" src="${pageContext.request.contextPath}/js/uploadAdapter.js"></script>
     <script type="text/javascript">
       var contEditor;
 
@@ -74,7 +74,7 @@
 
       $( '#btnList' ).click( function(e) {
         e.preventDefault(); 
-        location.href = '/Board/Free/getBoardList.do';
+        location.href = '${pageContext.request.contextPath}/Board/Free/getBoardList.do';
       });
 
       $( document ).ready( function() {
@@ -104,7 +104,7 @@
       function getThumbnail(cont) {
         let f_index = -1;
         let l_index = -1;
-        let no_image = "/img/no_image.jpg";
+        let no_image = "${pageContext.request.contextPath}/img/no_image.jpg";
 
         f_index = cont.indexOf("<img src=\"", 0) + 10;
 

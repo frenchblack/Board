@@ -5,6 +5,12 @@
 //   , freeContent : "/Board/Free/getBoardContent.do"
 //   , freeWirte : "/Board/Free/writeBoard.do"
 // };
+function getContextPath() {
+	return sessionStorage.getItem("contextpath");
+}
+
+// const ctx = window.location.pathname.substring(0, window.location.pathname.indexOf("/",2));
+const ctx = getContextPath();
 
 function addJavascript(src, integrity, crossorigin) {
   let wStr = "<script type='text/javascript'";
@@ -16,9 +22,9 @@ function addJavascript(src, integrity, crossorigin) {
   document.write(wStr);
 }
 
-addJavascript("/js/jquery-3.5.1.min.js");
-addJavascript("/js/popper.min.js");
-addJavascript("/js/bootstrap.min.js");
-addJavascript("/js/common/common.js");
+addJavascript(ctx + "/js/jquery-3.5.1.min.js");
+addJavascript(ctx + "/js/popper.min.js");
+addJavascript(ctx + "/js/bootstrap.min.js");
+addJavascript(ctx + "/js/common/common.js");
 
 //console.log("Load common.js");

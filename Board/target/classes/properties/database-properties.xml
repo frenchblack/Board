@@ -3,7 +3,7 @@
 <properties>
 	<comment>DATA_SOURCE</comment>
 	<entry key="jdbc.driverClassName">org.mariadb.jdbc.Driver</entry>
-	<entry key="jdbc.url">jdbc:mariadb://127.0.0.1:3306/Board</entry>
+	<entry key="jdbc.url">jdbc:mariadb://127.0.0.1:3306/board</entry>
 	<entry key="jdbc.username">BOARD</entry>
 	<entry key="jdbc.password">1234</entry>
 </properties>

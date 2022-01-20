@@ -1,5 +1,5 @@
 //pagination
-addJavascript("/js/util/uriBuilder.js");
+addJavascript(ctx + "/js/util/uriBuilder.js");
 
 function ptrPaginationToHtml( pagination, lcoation) {
   let pagingUri = new UriBuilder(lcoation);
